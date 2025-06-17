@@ -1,6 +1,6 @@
 @props(['title'])
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -16,23 +16,19 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-white">
-<div class="min-h-screen px-24 py-6 space-y-12">
-    <!-- #Header -->
-    <header>
-        <x-nav>
+<body class="font-sans antialiased h-full w-full bg-[#FFF7EB]">
+    <div class="min-h-screen px-24 py-6 space-y-12">
+        <!-- #Header -->
+        <header>
 
-        </x-nav>
-    </header>
+        </header>
 
-    <!-- #Main -->
-    <main class="w-full">
-        {{ $slot }}
-    </main>
+        <!-- #Main -->
+        <main class="w-full">
+            {{ $slot }}
+        </main>
 
-</div>
-
-
+    </div>
 </body>
 
 </html>
