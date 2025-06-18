@@ -10,12 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('favorites', function (Blueprint $table) {
-            $table->id('id_favorites');
-            $table->unsignedBigInteger('id_user');
+        Schema::create('steps', function (Blueprint $table) {
+            $table->id('id_step');
+            $table->string('name');
+            $table->string('image')->nullable();
+            $table->longText('content');
             $table->unsignedBigInteger('id_recette');
-            $table->foreign('id_user')->references('id_user')->on('users');
             $table->foreign('id_recette')->references('id_recette')->on('recettes');
+            $table->timestamps();
         });
 
     }
@@ -25,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('favorites');
+        Schema::dropIfExists('steps');
     }
 };
