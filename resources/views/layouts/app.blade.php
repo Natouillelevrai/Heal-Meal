@@ -16,12 +16,12 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased h-full w-full bg-[#FFF7EB]">
-    <div class="min-h-screen px-24 py-6 space-y-12">
+<body class="font-sans antialiased bg-[#FFF7EB]">
+    <div class="min-h-screen px-4 space-y-12 relative ">
         <!-- #Header -->
-        <header>
+        <x-header>
 
-        </header>
+        </x-header>
 
         <!-- #Main -->
         <main class="w-full">
