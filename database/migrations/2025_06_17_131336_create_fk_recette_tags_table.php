@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('id_tag')->nullable();
             $table->foreign('id_recette')->references('id_recette')->on('recettes');
             $table->foreign('id_tag')->references('id_tag')->on('tags');
+            $table->timestamps();
         });
 
     }
@@ -25,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('_f_k_recettes_tags');
+        Schema::dropIfExists('fk_recette_tags');
     }
 };

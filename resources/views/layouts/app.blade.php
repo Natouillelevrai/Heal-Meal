@@ -18,6 +18,7 @@
 
 <body class="font-sans antialiased bg-[#FFF7EB]">
     <div class="min-h-screen px-4 space-y-12 relative ">
+
         <!-- #Header -->
         <x-header>
 
