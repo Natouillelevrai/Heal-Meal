@@ -10,12 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('recettes', function (Blueprint $table) {
-            $table->id('id_recette');
-            $table->string('name');
-            $table->longText('desc');
+        Schema::create('comment', function (Blueprint $table) {
+            $table->id('id_comment');
+            $table->mediumText('content');
+            $table->unsignedBigInteger('id_recettes');
             $table->unsignedBigInteger('id_user');
+            $table->foreign('id_recettes')->references('id_recette')->on('recettes');
             $table->foreign('id_user')->references('id_user')->on('users');
+            $table->timestamps();
         });
 
     }
@@ -25,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('recettes');
+        Schema::dropIfExists('comments');
     }
 };
