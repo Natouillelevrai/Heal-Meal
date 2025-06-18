@@ -7,7 +7,7 @@
             <i class="ri-arrow-right-line"></i>
             <span
                 class="absolute left-0 -bottom-1 w-full h-[2px] bg-black scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
-        </a>
+        </a>    
     </div>
 
     <div class="carousel relative w-full h-48 max-w-xl overflow-hidden mx-auto">
