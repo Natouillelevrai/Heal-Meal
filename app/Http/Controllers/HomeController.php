@@ -17,12 +17,23 @@ class HomeController extends Controller
             ->selectRaw('AVG(rating.rate) as average_rating')
             ->groupBy('recettes.id_recette')
             ->orderByDesc('average_rating')
-            ->limit(3)
+            ->limit(25)
             ->get();
+
+        $result = [];
+        $usedIndexes = [];
+
+        while (count($result) < 6) {
+            $rand = rand(0, count($recettes) - 1);
+            if (!in_array($rand, $usedIndexes)) {
+                $usedIndexes[] = $rand;
+                $result[] = $recettes[$rand];
+            }
+        }
 
         return view('home', [
             'title' => 'Accueil',
-            'recettes' => $recettes,
+            'recettes' => $result,
         ]);
     }
 

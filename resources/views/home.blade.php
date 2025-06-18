@@ -13,7 +13,7 @@
     <div class="carousel relative w-full h-48 max-w-xl overflow-hidden mx-auto">
         <div class="h-full carousel-track flex transition-transform duration-500">
             @foreach($recettes as $recette)
-                <img src="/img/{{ $recette['image'] }}" alt="Recette" class="w-full h-full flex-shrink-0 object-cover" />
+                <img src="{{ $recette['image'] }}" alt="Recette" class="w-full h-full flex-shrink-0 object-cover" />
             @endforeach
         </div>
 
