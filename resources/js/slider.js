@@ -30,7 +30,9 @@ body.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowRight') {
         index = (index + 1) % slides.length;
         updateCarousel();
-    } else if (event.key === 'ArrowLeft') {
+    } 
+    
+    else if (event.key === 'ArrowLeft') {
         index = (index - 1 + slides.length) % slides.length;
         updateCarousel();
     }
@@ -45,5 +47,10 @@ dots.forEach(dot => {
 
 window.addEventListener('resize', updateCarousel);
 
-// Init au chargement
+
+setInterval(() => {
+    index = (index + 1) % slides.length;
+    updateCarousel();
+}, 5000);
+
 updateCarousel();

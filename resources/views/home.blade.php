@@ -24,7 +24,40 @@
 
         <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
             @foreach($recettes as $recette)
-                <button class="dot w-3 h-3 rounded-full bg-white hover:bg-gray transition-all" data-slide="{{ $loop->index }}"></button>
+                <button class="dot w-3 h-3 rounded-full bg-white hover:bg-gray transition-all"
+                    data-slide="{{ $loop->index }}"></button>
+            @endforeach
+        </div>
+    </div>
+
+    <div class="categoriesContainer flex flex-col my-10">
+        <div class="regimeContainer my-5">
+            <h2 class="text-2xl mb-4 py-2 underline text-center">Regimes</h2>
+            @foreach($regimes as $regime)
+                <a class="w-full h-25 bg-white my-2 flex flex-row items-center rounded-[12px]" href="#">
+                    <div class="w-50/100">
+                        <p class="pl-5">{{ $regime["name"] }}</p>
+                    </div>
+
+                    <div class="w-50/100 h-full bg-cover bg-center rounded-r-[12px] overflow-hidden"
+                        style="background-image: url('{{ $regime["image"] }}');">
+                        <div class="h-25 rotate-45 w-25 bg-white relative -left-15 rounded-xl shadow"></div>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+        <div class="originsContainer my-5">
+            @foreach($origins as $origin)
+                <a class="w-full h-25 bg-white my-2 flex flex-row items-center rounded-[12px]" href="#">
+                    <div class="w-50/100">
+                        <p class="pl-5">{{ $origin["name"] }}</p>
+                    </div>
+
+                    <div class="w-50/100 h-full bg-cover bg-center rounded-r-[12px] overflow-hidden"
+                        style="background-image: url('{{ $origin["image"] }}');">
+                        <div class="h-25 rotate-45 w-25 bg-white relative -left-15 rounded-xl shadow"></div>
+                    </div>
+                </a>
             @endforeach
         </div>
     </div>

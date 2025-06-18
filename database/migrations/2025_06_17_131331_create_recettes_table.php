@@ -15,11 +15,13 @@ return new class extends Migration {
             $table->string('name');
             $table->string('image');
             $table->longText('desc');
+            $table->unsignedBigInteger('id_origine');
             $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id_user')->on('users');
             $table->timestamps();
-        });
 
+            $table->foreign('id_origine')->references('id_origine')->on('origins');
+            $table->foreign('id_user')->references('id_user')->on('users');
+        });
     }
 
     /**
