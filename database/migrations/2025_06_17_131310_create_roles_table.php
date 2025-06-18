@@ -10,21 +10,20 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id('id_user');
-            $table->string('username', 20);
-            $table->string('password', 255);
-            $table->unsignedBigInteger('id_roles');
-            $table->foreign('id_roles')->references('id_role')->on('roles');
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id('id_role');
+            $table->string('name', 50);
+            $table->timestamps();
         });
 
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('roles');
     }
 };

@@ -32,6 +32,7 @@ return new class extends Migration {
             $table->integer('Glu')->nullable();
             $table->integer('Mac_nut')->nullable();
             $table->integer('Mic_nut')->nullable();
+            $table->timestamps();
         });
 
     }

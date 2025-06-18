@@ -17,7 +17,7 @@
 </head>
 
 <body class="font-sans antialiased h-full w-full bg-[#FFF7EB]">
-    <div class="min-h-screen px-24 py-6 space-y-12">
+    <div class="min-h-screen px-3 py-6 space-y-12">
         <!-- #Header -->
         <header>
 
