@@ -10,6 +10,22 @@
 
             <h2 class="text-center text-xl uppercase tracking-widest font-bold">Inscription</h2>
 
+            <div class="relative w-full max-w-[150px] flex justify-between items-center self-center ">
+                <div class="absolute z-1 left-1 h-2 w-[95%] bg-[#FFF7EB] transition-all ease-in duration-500"></div>
+                <div class="absolute z-1 left-1 h-2 w-1 bg-[#0E2F46] transition-all ease-in duration-500" id="stepProgress"></div>
+                <div
+                    class="number-progress relative z-5 flex justify-center items-center h-8 w-8 rounded-full bg-[#FFF7EB] text-[#0E2F46] font-bold text-lg transition-all ease-in-out duration-500">
+                    1</div>
+                <div
+                    class="number-progress relative z-5 flex justify-center items-center h-8 w-8 rounded-full bg-[#FFF7EB] text-[#0E2F46] font-bold text-lg transition-all ease-in-out duration-500">
+                    2</div>
+                <div
+                    class="number-progress relative z-5 flex justify-center items-center h-8 w-8 rounded-full bg-[#FFF7EB] text-[#0E2F46] font-bold text-lg transition-all ease-in-out duration-500">
+                    3</div>
+            </div>
+
+            <strong class="text-center text-md uppercase tracking-widest font-bold" id="stepTitle">Loading...</strong>
+
             <div class="relative w-full">
                 <div class="flex w-full h-auto transition-transform duration-500 ease-in-out overflow-x-hidden">
                     <!-- Slide 1 -->
