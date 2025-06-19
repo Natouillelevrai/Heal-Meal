@@ -1,23 +1,31 @@
 const steps = document.querySelectorAll('[data-step]');
-const numbersProgress = document.querySelectorAll('.number-progress');
-const nextStepBtn = document.querySelector('#nextStep');
 const stepTitle = document.querySelector('#stepTitle');
+const stepsTitle = ['', "Qui êtes-vous ?", "Information Utilisateur", "Une dernière chose"]
+
+const numbersProgress = document.querySelectorAll('.number-progress');
 const stepProgress = document.querySelector('#stepProgress');
+const stepsProgress = ['', '1%', '50%', '95%'];
+
+const nextStepBtn = document.querySelector('#nextStep');
+const submitButton = document.querySelector('#validate-form');
 
 let currentStep = 1;
-const stepsTitle = [
-  '',
-  "Qui êtes-vous ?",
-  "Information Utilisateur",
-  "Une derniière chose"
-]
 
-const stepsProgress = [
-  '',
-  '1%',
-  '50%',
-  '95%'
-];
+function setButtonDisabled(isDisabled, parent, btn) {
+  if (isDisabled) {
+    btn.setAttribute('disabled', 'disabled');
+    btn.classList.add('hidden');
+    btn.classList.remove('inline-flex');
+    parent.classList.remove('hidden');
+    parent.classList.add('inline-flex');
+  } else {
+    btn.removeAttribute('disabled');
+    btn.classList.remove('inline-flex');
+    btn.classList.remove('hidden');
+    parent.classList.remove('inline-flex');
+    parent.classList.add('hidden');
+  }
+}
 
 function updateStepFocus() {
   stepTitle.textContent = stepsTitle[currentStep];
@@ -53,6 +61,9 @@ updateStepFocus();
 
 nextStepBtn.addEventListener('click', () => {
   const next = currentStep + 1;
+  if (next === 3) {
+    setButtonDisabled(false, nextStepBtn, submitButton);
+  }
   const nextSlide = document.querySelector(`[data-step="${next}"]`);
 
   if (nextSlide) {

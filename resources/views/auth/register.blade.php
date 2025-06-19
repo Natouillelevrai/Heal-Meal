@@ -144,7 +144,7 @@
                 </div>
 
                 <div class="flex flex-col gap-y-2 items-center justify-end mt-4">
-                    <x-primary-button :disabled="true">
+                    <x-primary-button :disabled="true" id="validate-form">
                         {{ __('Register') }}
                     </x-primary-button>
 
