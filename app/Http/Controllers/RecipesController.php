@@ -7,7 +7,7 @@ use App\Models\Recette;
 class RecipesController
 {
 public function index() {
-        $recettes = Recette::all();
-        return view('recipes-catalog', ['recettes' => $recettes]);
+        $recettes = Recette::paginate(12);
+        return view('recipes-catalog', ['recettes' => $recettes, 'title' => 'Recipes Catalog']);
     }
 }
