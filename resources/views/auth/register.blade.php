@@ -12,7 +12,8 @@
 
             <div class="relative w-full max-w-[150px] flex justify-between items-center self-center ">
                 <div class="absolute z-1 left-1 h-2 w-[95%] bg-[#FFF7EB] transition-all ease-in duration-500"></div>
-                <div class="absolute z-1 left-1 h-2 w-1 bg-[#0E2F46] transition-all ease-in duration-500" id="stepProgress"></div>
+                <div class="absolute z-1 left-1 h-2 w-1 bg-[#0E2F46] transition-all ease-in duration-500"
+                    id="stepProgress"></div>
                 <div
                     class="number-progress relative z-5 flex justify-center items-center h-8 w-8 rounded-full bg-[#FFF7EB] text-[#0E2F46] font-bold text-lg transition-all ease-in-out duration-500">
                     1</div>
@@ -68,9 +69,9 @@
 
                         <!-- Pseudo -->
                         <div>
-                            <x-input-label for="username" :value="__('Pseudo')" />
+                            <x-input-label for="username" :value="__('Nom d\'utilisateur')" />
                             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
-                                :value="old('username')" autocomplete="username" placeholder="Choisissez un pseudo" />
+                                :value="old('username')" autocomplete="username" placeholder="Choisissez votre nom d'utilisateur" />
                             <x-input-error :messages="$errors->get('username')" class="mt-2" />
                         </div>
 
@@ -117,13 +118,13 @@
 
                             <!-- Tags affichés -->
                             <div class="flex mt-2 flex-wrap gap-2">
-                                <span class="bg-gray-300 rounded-full px-2 py-1">Peanut <button
+                                <span class="bg-gray-300 rounded-full px-2 py-1">Cacahuète <button
                                         class="text-red-600">🗑️</button></span>
-                                <span class="bg-gray-300 rounded-full px-2 py-1">Salad <button
+                                <span class="bg-gray-300 rounded-full px-2 py-1">Salade <button
                                         class="text-red-600">🗑️</button></span>
-                                <span class="bg-gray-300 rounded-full px-2 py-1">Sugar <button
+                                <span class="bg-gray-300 rounded-full px-2 py-1">Sucre <button
                                         class="text-red-600">🗑️</button></span>
-                                <span class="bg-gray-300 rounded-full px-2 py-1">Nuts <button
+                                <span class="bg-gray-300 rounded-full px-2 py-1">Noix <button
                                         class="text-red-600">🗑️</button></span>
                             </div>
                         </div>
@@ -145,17 +146,17 @@
 
                 <div class="flex flex-col gap-y-2 items-center justify-end mt-4">
                     <x-primary-button :disabled="true" id="validate-form">
-                        {{ __('Register') }}
+                        {{ __('Créer mon compte') }}
                     </x-primary-button>
 
                     <button id="nextStep" type="button" role="form"
                         class="w-full inline-flex justify-center items-center px-4 py-2 bg-[#0E2F46] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-800 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                        Next Step
+                        Prochaine étape
                     </button>
 
                     <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         href="{{ route('login') }}">
-                        {{ __('Already registered?') }}
+                        {{ __('Vous avez déjà un compte?') }}
                     </a>
                 </div>
         </form>
