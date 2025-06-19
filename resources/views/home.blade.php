@@ -1,6 +1,6 @@
 <x-app-layout :title="$title">
 
-    <div class="flex flex-col items-center inter py-20">
+    <div class="flex flex-col items-center inter py-20 mt-20">
         <h1 class="text-3xl">Welcome</h1>
         <a href="#" class="relative inline-block text-xl group">
             This is Heal Meal
@@ -10,7 +10,7 @@
         </a>
     </div>
 
-    <div class="carousel relative w-full h-48 max-w-xl overflow-hidden mx-auto">
+    <div class="carousel relative w-full h-48 overflow-hidden rounded-xl">
         <div class="h-full carousel-track flex transition-transform duration-500">
             @foreach($recettes as $recette)
                 <img src="{{ $recette['image'] }}" alt="Recette" class="w-full h-full flex-shrink-0 object-cover" />
@@ -46,7 +46,9 @@
                 </a>
             @endforeach
         </div>
+
         <div class="originsContainer my-5">
+            <h2 class="text-2xl mb-4 py-2 underline text-center">Origines</h2>
             @foreach($origins as $origin)
                 <a class="w-full h-25 bg-white my-2 flex flex-row items-center rounded-[12px]" href="#">
                     <div class="w-50/100">
