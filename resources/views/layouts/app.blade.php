@@ -25,7 +25,7 @@
         </x-header>
 
         <!-- #Main -->
-        <main class="w-full px-4">
+        <main class="w-full flex flex-col items-center">
             {{ $slot }}
         </main>
         <x-footer></x-footer>
