@@ -66,7 +66,7 @@ class HomeController extends Controller
         }
 
         // SEASON
-        $season = 0;
+        $season = 1;
         $currentMonth = date('n');
 
         if ($currentMonth >= 3 && $currentMonth <= 5) {
