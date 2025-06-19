@@ -30,8 +30,8 @@
         </div>
     </div>
 
-    <div class="categoriesContainer flex flex-col my-10">
-        <div class="regimeContainer my-5">
+    <div class="categoriesContainer w-full flex flex-col my-10">
+        <div class="w-full regimeContainer my-5 flex flex-col items-center">
             <h2 class="text-2xl mb-4 py-2 underline text-center">Regimes</h2>
             @foreach($regimes as $regime)
                 <a class="w-full h-25 bg-white my-2 flex flex-row items-center rounded-[12px]" href="#">
@@ -45,9 +45,10 @@
                     </div>
                 </a>
             @endforeach
+            <a href="#" class="py-2 text-xl"><span class="underline">Charger plus</span> <i class="ri-arrow-right-line"></i></a>
         </div>
 
-        <div class="originsContainer my-5">
+        <div class="w-full originsContainer my-5 flex flex-col items-center">
             <h2 class="text-2xl mb-4 py-2 underline text-center">Origines</h2>
             @foreach($origins as $origin)
                 <a class="w-full h-25 bg-white my-2 flex flex-row items-center rounded-[12px]" href="#">
@@ -61,7 +62,16 @@
                     </div>
                 </a>
             @endforeach
+            <a href="#" class="py-2 text-xl"><span class="underline">Charger plus</span> <i class="ri-arrow-right-line"></i></a>
         </div>
+    </div>
+
+
+    <div class="w-85/100 h-200 bg-[#B7E7EB] my-5 p-3 rounded-xl flex flex-col items-center">
+        <img src={{ $seasonDish['image'] }} alt="Season Dish" class="w-full h-65 rounded-xl"/>
+        <p class="text-center pt-10 text-xl">{{ $seasonDish['name'] }}</p>
+        <p class="text-center text-gray-600 py-3">{{ $seasonDish["desc"] }}</p>
+        <a>Voir plus <i class="ri-arrow-right-line"></i></a>
     </div>
 
     @vite(['resources/js/slider.js'])
