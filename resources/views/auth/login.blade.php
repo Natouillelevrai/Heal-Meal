@@ -3,31 +3,29 @@
 @endphp
 
 <x-app-layout :title="$title">
-    <div class="w-full h-screen flex justify-center items-center">
+    <div class="w-full min-h-screen overflow-y-auto flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <form method="POST" action="{{ route('login') }}"
-            class="flex flex-col gap-y-3 w-full max-w-[350px] py-24 px-12 bg-[#B7E7EB] rounded-2xl ring-2 ring-white">
+            class="flex flex-col gap-y-3 w-full max-w-[350px] py-16 px-6 sm:px-12 bg-[#B7E7EB] rounded-2xl ring-2 ring-white shadow-lg">
             @csrf
 
-            <h2 class="text-center text-xl uppercase letter tracking-widest font-bold">Connexion</h2>
+            <h2 class="text-center text-xl uppercase tracking-widest font-bold">Connexion</h2>
 
             <!-- Email Address -->
             <div>
                 <x-input-label for="email" :value="__('Email')" />
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" placeholder="example@gmail.com" :value="old('email')"
-                    required autofocus autocomplete="username" />
+                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+                    placeholder="example@gmail.com" :value="old('email')" required autofocus autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-input-label for="password" :value="__('Password')" />
-
-                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" placeholder="Rentrer votre mot de passe " required
-                    autocomplete="current-password" />
-
+                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
+                    placeholder="Rentrer votre mot de passe" required autocomplete="current-password" />
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
