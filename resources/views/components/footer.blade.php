@@ -1,3 +1,4 @@
+
 <footer class="bg-[#0E2F46] h-44 py-5 text-white text-2xl flex flex-col items-center justify-between">
     <a href="http://127.0.0.1:8000/"><strong class="text-[#B7E7EB]">HealMeal</strong></a>
     <ul class="flex w-1/2 justify-between">
@@ -12,4 +13,5 @@
         </li>
     </ul>
     <p>©2025 • HealMeal </p>
+
 </footer>
