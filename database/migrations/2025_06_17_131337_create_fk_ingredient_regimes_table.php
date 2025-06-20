@@ -26,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('fk_ingredient_regimes');
+        Schema::dropIfExists('fk_ingredient_regime');
     }
 };
