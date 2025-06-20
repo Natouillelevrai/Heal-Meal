@@ -1,6 +1,7 @@
 <x-app-layout :title="$title">
 <section>
     @foreach($recettes as $recette)
+        <a href="#">
     <div class="h-36 my-5 pl-4 flex flex-row justify-between bg-white rounded-xl shadow-sm  shadow-gray-500">
 
         <div class="flex flex-col  justify-around h-full">
@@ -37,6 +38,10 @@
             <img class="w-full h-36 rounded-r-2xl object-cover" src="/images/rice-fried-pork.png" alt="">
         </div>
     </div>
+        </a>
         @endforeach
+        <div class="mt-6 w-full flex justify-center h-5 w-5 py-10">
+            {{ $recettes->links('pagination::tailwind') }}
+        </div>
 </section>
 </x-app-layout>
