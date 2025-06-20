@@ -112,20 +112,17 @@
                         <!-- Allergènes -->
                         <div class="mt-4">
                             <x-input-label for="allergenes" :value="__('Allergène(s)')" />
-                            <x-text-input id="allergenes" type="search" name="allergenes" placeholder="Ajouter..."
-                                class="block w-full mt-1" autocomplete="off" :value="old('allergenes')" />
+                            <div>
+                            <x-text-input id="allergenes" type="search" name="allergenes" placeholder="Ajouter..." class="block w-full mt-1" autocomplete="off" :value="old('allergenes')" />
+                                <div class="w-full bg-white rounded-lg contain-search-result">
+
+                                </div>
+                            </div>
                             <x-input-error :messages="$errors->get('allergenes')" class="mt-2" />
 
                             <!-- Tags affichés -->
-                            <div class="flex mt-2 flex-wrap gap-2">
-                                <span class="bg-gray-300 rounded-full px-2 py-1">Cacahuète <button
-                                        class="text-red-600">🗑️</button></span>
-                                <span class="bg-gray-300 rounded-full px-2 py-1">Salade <button
-                                        class="text-red-600">🗑️</button></span>
-                                <span class="bg-gray-300 rounded-full px-2 py-1">Sucre <button
-                                        class="text-red-600">🗑️</button></span>
-                                <span class="bg-gray-300 rounded-full px-2 py-1">Noix <button
-                                        class="text-red-600">🗑️</button></span>
+                            <div class="flex mt-2 flex-wrap gap-2 contain-tag-allergene">
+
                             </div>
                         </div>
 
