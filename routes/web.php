@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/recipes', [RecipesController::class, 'index'])->name('recipes');
+Route::get('/recettes', [RecipesController::class, 'index'])->name('recettes');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
