@@ -12,11 +12,16 @@ return new class extends Migration {
     {
         Schema::create('recettes', function (Blueprint $table) {
             $table->id('id_recette');
+
             $table->string('name');
             $table->string('image');
             $table->longText('desc');
+
+            $table->enum('season', [1, 2, 3, 4]);
+
             $table->unsignedBigInteger('id_origine');
             $table->unsignedBigInteger('id_user');
+
             $table->timestamps();
 
             $table->foreign('id_origine')->references('id_origine')->on('origins');

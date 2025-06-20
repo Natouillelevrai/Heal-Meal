@@ -17,7 +17,7 @@
 </head>
 
 <body class="font-sans antialiased bg-[#FFF7EB]">
-    <div class="min-h-screen px-4 space-y-12 relative ">
+    <div class="min-h-[calc(100vh-100px)] mt-25 flex flex-col justify-between space-y-12 relative ">
 
         <!-- #Header -->
         <x-header>
@@ -25,10 +25,12 @@
         </x-header>
 
         <!-- #Main -->
-        <main class="w-full">
+
+        <main class="w-full px-4 m-0 h-full">
+
             {{ $slot }}
         </main>
-
+        <x-footer></x-footer>
     </div>
 </body>
 
