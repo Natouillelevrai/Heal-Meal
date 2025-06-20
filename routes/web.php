@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/recipes', [RecipesController::class, 'index'])->name('recipes');
+Route::get('/recipes/{id}', [RecipesController::class, 'show'])->name('recipe.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
