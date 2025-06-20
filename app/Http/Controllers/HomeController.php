@@ -65,11 +65,38 @@ class HomeController extends Controller
             }
         }
 
+        // SEASON
+        $season = 1;
+        $currentMonth = date('n');
+
+        if ($currentMonth >= 3 && $currentMonth <= 5) {
+            $season = 2; // Printemps
+        } elseif ($currentMonth >= 6 && $currentMonth <= 8) {
+            $season = 3; // Été
+        } elseif ($currentMonth >= 9 && $currentMonth <= 11) {
+            $season = 4; // Automne
+        } else {
+            $seasonseasonDish = 1; // Hiver
+        }
+
+
+        $seasonDish = Recette::select('recettes.*')
+            ->join('rating', 'recettes.id_recette', '=', 'rating.id_recette')
+            ->selectRaw('AVG(rating.rate) as average_rating')
+            ->groupBy('recettes.id_recette')
+            ->orderByDesc('average_rating')
+            ->where('season', $season)
+            ->limit(1)
+            ->get();
+
+        $seasonDish = $seasonDish[0];
+
         return view('home', [
             'title' => 'Accueil',
             'recettes' => $RecettesResult,
             'regimes' => $RegimeResult,
             'origins' => $OriginResult,
+            'seasonDish' => $seasonDish
         ]);
     }
 
