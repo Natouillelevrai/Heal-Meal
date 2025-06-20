@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             FkRecetteTagSeeder::class,
             FkIngredientRegimeSeeder::class,
             FkRecetteIngredientSeeder::class,
+            AllergenesSeeder::class,
+            AllergeneIngredientSeeder::class,
         ]);
     }
 }
