@@ -3,7 +3,7 @@
 @endphp
 
 <x-app-layout :title="$title">
-    <div class="w-full min-h-screen overflow-y-auto flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full min-h-screen overflow-y-auto flex justify-center items-center px-4 sm:px-6 lg:px-8">
         <form method="POST" action="{{ route('register') }}"
             class="flex flex-col gap-y-4 w-full max-w-[400px] py-16 px-6 sm:px-12 bg-[#B7E7EB] rounded-2xl ring-2 ring-white shadow-lg">
             @csrf
