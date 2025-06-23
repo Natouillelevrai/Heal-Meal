@@ -1,3 +1,5 @@
+import { init } from "./fetch.js";
+
 const form = document.querySelector('form');
 
 const steps = document.querySelectorAll('[data-step]');
@@ -18,11 +20,6 @@ let currentStep = 1;
 let data = [];
 let allergeneData = [];
 
-function getData() {
-    return fetch('http://127.0.0.1:8000/api/allergenes')
-        .then(response => response.json())
-}
-
 function createTagAllergene(name) {
     let containAllergene = document.querySelector('.contain-tag-allergene')
     containAllergene.innerHTML += `<div class="flex gap-2 bg-gray-300 rounded-full px-2 py-1 delete-allergene">${name} <p class="text-red-600">🗑️</p></div>`;
@@ -36,9 +33,7 @@ function createTagAllergene(name) {
     })
 }
 
-async function init() {
-    data = await getData();
-}
+data = await init('http://127.0.0.1:8000/api/allergenes');
 
 function sortData(q) {
     if (!q) return [];
@@ -62,7 +57,6 @@ function createAllergeneSearch(text) {
     let containSearchResult = document.querySelector('.contain-search-result');
     containSearchResult.innerHTML += `<p class="divSearch">${text}</p>`;
 }
-
 
 searchInput.addEventListener('input', function () {
     let dataSort = sortData(searchInput.value)
@@ -157,9 +151,6 @@ function updateStepFocus() {
     });
 }
 
-
-init()
-
 updateStepFocus();
 
 nextStepBtn.addEventListener('click', () => {
@@ -175,8 +166,6 @@ nextStepBtn.addEventListener('click', () => {
         nextSlide.scrollIntoView({ behavior: 'smooth', inline: 'start' });
     }
 });
-
-
 
 window.addEventListener('resize', () => {
     const nextSlide = document.querySelector(`[data-step="${currentStep}"]`);
