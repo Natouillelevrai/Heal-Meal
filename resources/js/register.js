@@ -1,6 +1,6 @@
 import { init } from "./fetch.js";
 
-const form = document.querySelector('form');
+const form = document.querySelector('#register-form');
 
 const steps = document.querySelectorAll('[data-step]');
 const stepTitle = document.querySelector('#stepTitle');
@@ -50,7 +50,7 @@ function sortData(q) {
             return aName.indexOf(qLower) - bName.indexOf(qLower);
         })
         .filter(item => !allergeneData.includes(item.name))
-        .slice(0,5)
+        .slice(0, 5)
 }
 
 function createAllergeneSearch(text) {
@@ -169,11 +169,19 @@ nextStepBtn.addEventListener('click', () => {
 
 window.addEventListener('resize', () => {
     const nextSlide = document.querySelector(`[data-step="${currentStep}"]`);
-    nextSlide.scrollIntoView({behavior: 'smooth', inline: 'start'});
+    nextSlide.scrollIntoView({ behavior: 'smooth', inline: 'start' });
 })
 
 form.addEventListener('submit', e => {
     e.preventDefault();
-    let dataForm = new FormData();
-    console.log(dataForm);
-})
+
+    let dataForm = new FormData(form);
+
+    init('http://localhost:8000/api/register', dataForm.entries())
+        .then(data => {
+            console.log('Succès:', data);
+        })
+        .catch(errors => {
+            console.error('Erreurs de validation:', errors);
+        });
+});
