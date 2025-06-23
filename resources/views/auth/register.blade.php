@@ -36,7 +36,7 @@
                             <x-input-label for="lastname" :value="__('Nom')" />
                             <x-text-input id="lastname" class="block mt-1 w-full" type="text" name="lastname"
                                 :value="old('lastname')" autofocus autocomplete="lastname"
-                                placeholder="Entrez votre nom" />
+                                placeholder="Entrez votre nom" data-step="1" />
                             <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
                         </div>
 
@@ -44,7 +44,7 @@
                         <div>
                             <x-input-label for="firstname" :value="__('Prénom')" />
                             <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname"
-                                :value="old('firstname')" autocomplete="firstname" placeholder="Entrez votre prénom" />
+                                :value="old('firstname')" autocomplete="firstname" placeholder="Entrez votre prénom" data-step="1"/>
                             <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
                         </div>
 
@@ -52,7 +52,7 @@
                         <div>
                             <x-input-label for="birth" :value="__('Date de naissance')" />
                             <x-text-input id="birth" class="block mt-1 w-full" type="date" name="birth"
-                                autocomplete="birth" placeholder="JJ/MM/AAAA" />
+                                autocomplete="birth" placeholder="JJ/MM/AAAA" data-step="1"/>
                             <x-input-error :messages="$errors->get('birth')" class="mt-2" />
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         <div>
                             <x-input-label for="email" :value="__('Email')" />
                             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
-                                :value="old('email')" autofocus autocomplete="email" placeholder="exemple@mail.com" />
+                                :value="old('email')" autofocus autocomplete="email" placeholder="exemple@mail.com" data-step="2"/>
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
@@ -71,7 +71,7 @@
                         <div>
                             <x-input-label for="username" :value="__('Nom d\'utilisateur')" />
                             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
-                                :value="old('username')" autocomplete="username" placeholder="Choisissez votre nom d'utilisateur" />
+                                :value="old('username')" autocomplete="username" placeholder="Choisissez votre nom d'utilisateur" data-step="2"/>
                             <x-input-error :messages="$errors->get('username')" class="mt-2" />
                         </div>
 
@@ -79,7 +79,7 @@
                         <div>
                             <x-input-label for="password" :value="__('Mot de passe')" />
                             <x-text-input id="password" class="block mt-1 w-full" type="text" name="password"
-                                autocomplete="password" placeholder="Entrez un mot de passe sécurisé" />
+                                autocomplete="password" placeholder="Entrez un mot de passe sécurisé" data-step="2"/>
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
 
@@ -88,7 +88,7 @@
                             <x-input-label for="verify-password" :value="__('Vérification mot de passe')" />
                             <x-text-input id="verify-password" class="block mt-1 w-full" type="text"
                                 name="verify-password" autocomplete="verify-password"
-                                placeholder="Confirmez le mot de passe" />
+                                placeholder="Confirmez le mot de passe" data-step="2" />
                             <x-input-error :messages="$errors->get('verify-password')" class="mt-2" />
                         </div>
                     </div>
@@ -99,8 +99,8 @@
                         <div>
                             <x-input-label for="regime" :value="__('Régime')" />
                             <select id="regime" name="regime"
-                                class="text-[#6E7173] bg-white px-4 py-2 ring-0 focus:ring-1 focus:ring-[#B7E7EB] rounded-lg shadow-sm block mt-1 w-full">
-                                <option value="">-- Sélectionnez un régime --</option>
+                                class="text-[#6E7173] bg-white px-4 py-2 ring-0 focus:ring-1 focus:ring-[#B7E7EB] rounded-lg shadow-sm block mt-1 w-full" data-step="3">
+                                <option value="">Aucun régime</option>
                                 <option value="omnivore">Omnivore</option>
                                 <option value="vegetarien">Végétarien</option>
                                 <option value="vegan">Végan</option>
@@ -130,8 +130,8 @@
                         <div class="mt-4">
                             <x-input-label for="objectif" :value="__('Objectif')" />
                             <select id="objectif" name="objectif"
-                                class="text-[#6E7173] bg-white px-4 py-2 ring-0 focus:ring-1 focus:ring-[#B7E7EB] rounded-lg shadow-sm block mt-1 w-full">
-                                <option value="">-- Sélectionnez un objectif --</option>
+                                class="text-[#6E7173] bg-white px-4 py-2 ring-0 focus:ring-1 focus:ring-[#B7E7EB] rounded-lg shadow-sm block mt-1 w-full" data-step="3">
+                                <option value="">Aucun objectif</option>
                                 <option value="perte-poids">Perte de poids</option>
                                 <option value="prise-masse">Prise de masse</option>
                                 <option value="maintien">Maintien</option>

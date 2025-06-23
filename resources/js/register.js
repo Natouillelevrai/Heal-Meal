@@ -78,6 +78,37 @@ searchInput.addEventListener('input', function () {
     })
 });
 
+function validateCurrentStep() {
+    const formStep = document.querySelector(`[data-step="${currentStep}"]`);
+    let valid = true;
+    const requiredFields = formStep.querySelectorAll('input, select');
+    requiredFields.forEach(field => {
+        const value = field.value.trim();
+        const name = field.getAttribute('name');
+        field.classList.remove('border', 'border-red-500');
+        if (name === 'email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                valid = false;
+                field.classList.add('border-red-500');
+            }
+        } else if (name === 'verify-password') {
+            const password = document.querySelector('input[name="password"]').value.trim();
+            if (value !== password || value === '') {
+                valid = false;
+                field.classList.add('border', 'border-red-500');
+            }
+        } else {
+            if (!value || value.length > 3) {
+                valid = false;
+                field.classList.add('border', 'border-red-500');
+            }
+        }
+    });
+    return valid;
+}
+
+
 function setButtonDisabled(isDisabled, parent, btn) {
     if (isDisabled) {
         btn.setAttribute('disabled', 'disabled');
@@ -130,18 +161,19 @@ init()
 updateStepFocus();
 
 nextStepBtn.addEventListener('click', () => {
+    if (!validateCurrentStep()) return;
     const next = currentStep + 1;
     if (next === 3) {
         setButtonDisabled(false, nextStepBtn, submitButton);
     }
     const nextSlide = document.querySelector(`[data-step="${next}"]`);
-
     if (nextSlide) {
         currentStep = next;
         updateStepFocus();
-        nextSlide.scrollIntoView({behavior: 'smooth', inline: 'start'});
+        nextSlide.scrollIntoView({ behavior: 'smooth', inline: 'start' });
     }
 });
+
 
 
 window.addEventListener('resize', () => {
