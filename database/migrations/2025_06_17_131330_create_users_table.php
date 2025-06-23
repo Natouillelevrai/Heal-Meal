@@ -15,19 +15,20 @@ return new class extends Migration {
 
             $table->string('firstName', 50);
             $table->string('lastName', 50);
-
             $table->string('username', 20)->unique();
-
             $table->date('birth');
 
             $table->string('email')->unique();
             $table->string('password');
 
+            $table->rememberToken();
+
             $table->unsignedBigInteger('id_roles');
             $table->foreign('id_roles')->references('id_role')->on('roles');
-            
+
             $table->timestamps();
         });
+
     }
 
 
