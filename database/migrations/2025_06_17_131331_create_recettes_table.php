@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('recettes', function (Blueprint $table) {
             $table->id('id_recette');
+            $table->string('references')->unique();
 
             $table->string('name');
             $table->string('image');
