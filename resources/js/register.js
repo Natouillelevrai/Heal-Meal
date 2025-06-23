@@ -1,3 +1,5 @@
+const form = document.querySelector('form');
+
 const steps = document.querySelectorAll('[data-step]');
 const stepTitle = document.querySelector('#stepTitle');
 const stepsTitle = ['', "Qui êtes-vous ?", "Information Utilisateur", "Une dernière chose"]
@@ -99,7 +101,7 @@ function validateCurrentStep() {
                 field.classList.add('border', 'border-red-500');
             }
         } else {
-            if (!value || value.length > 3) {
+            if (!value || value.length < 3) {
                 valid = false;
                 field.classList.add('border', 'border-red-500');
             }
@@ -179,4 +181,10 @@ nextStepBtn.addEventListener('click', () => {
 window.addEventListener('resize', () => {
     const nextSlide = document.querySelector(`[data-step="${currentStep}"]`);
     nextSlide.scrollIntoView({behavior: 'smooth', inline: 'start'});
+})
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    let dataForm = new FormData();
+    console.log(dataForm);
 })
