@@ -22,7 +22,7 @@ let allergeneData = [];
 
 function createTagAllergene(name) {
     let containAllergene = document.querySelector('.contain-tag-allergene')
-    containAllergene.innerHTML += `<div class="flex gap-2 bg-gray-300 rounded-full px-2 py-1 delete-allergene">${name} <p class="text-red-600">🗑️</p></div>`;
+    containAllergene.innerHTML += `<div class="flex gap-2 bg-gray-300 rounded-full px-2 py-1 delete-allergene"><p class="allergene-value">${name}</p> <p class="text-red-600">🗑️</p></div>`;
     allergeneData.push(name);
     let deleteAllergenes = document.querySelectorAll('.delete-allergene')
     deleteAllergenes.forEach(deleteAllergene => {
@@ -174,10 +174,21 @@ window.addEventListener('resize', () => {
 
 form.addEventListener('submit', e => {
     e.preventDefault();
+    const disabledFields = form.querySelectorAll('[disabled]');
+    disabledFields.forEach(field => field.removeAttribute('disabled'));
 
-    let dataForm = new FormData(form);
+    const formData = new FormData(form);
+    const dataRegister = {};
 
-    init('http://localhost:8000/api/register', dataForm.entries())
+    for (const [key, value] of formData.entries()) {
+        dataRegister[key] = value;
+    }
+    const allergeneElements = document.querySelectorAll('.allergene-value');
+    const allergenes = Array.from(allergeneElements).map(el => el.textContent.trim());
+
+    dataRegister.allergenes = allergenes;
+    disabledFields.forEach(field => field.setAttribute('disabled', 'disabled'));
+    init('http://localhost:8000/api/register', dataRegister)
         .then(data => {
             console.log('Succès:', data);
         })
