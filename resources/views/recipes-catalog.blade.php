@@ -35,7 +35,7 @@
                 <i class="ri-bookmark-line text-[#35A650]"></i>
             </div>
 
-            <img class="w-full h-36 rounded-r-2xl object-cover" src="/images/rice-fried-pork.png" alt="">
+            <img class="w-full h-36 rounded-r-2xl object-cover" src="{{ $recette->image }}" alt="">
         </div>
     </div>
         </a>
