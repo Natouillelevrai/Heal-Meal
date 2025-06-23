@@ -1,4 +1,4 @@
-const form = document.querySelector('form');
+let form = document.querySelector('#form');
 
 const steps = document.querySelectorAll('[data-step]');
 const stepTitle = document.querySelector('#stepTitle');
@@ -25,7 +25,7 @@ function getData() {
 
 function createTagAllergene(name) {
     let containAllergene = document.querySelector('.contain-tag-allergene')
-    containAllergene.innerHTML += `<div class="flex gap-2 bg-gray-300 rounded-full px-2 py-1 delete-allergene">${name} <p class="text-red-600">🗑️</p></div>`;
+    containAllergene.innerHTML += `<div class="flex gap-2 bg-gray-300 rounded-full px-2 py-1 delete-allergene"><p class="allergene-name">${name} </p><p class="text-red-600">🗑️</p></div>`;
     allergeneData.push(name);
     let deleteAllergenes = document.querySelectorAll('.delete-allergene')
     deleteAllergenes.forEach(deleteAllergene => {
@@ -176,15 +176,53 @@ nextStepBtn.addEventListener('click', () => {
     }
 });
 
-
-
 window.addEventListener('resize', () => {
     const nextSlide = document.querySelector(`[data-step="${currentStep}"]`);
     nextSlide.scrollIntoView({behavior: 'smooth', inline: 'start'});
 })
 
-form.addEventListener('submit', e => {
+
+form.addEventListener('submit', async e => {
     e.preventDefault();
-    let dataForm = new FormData();
-    console.log(dataForm);
-})
+
+    const data = {};
+
+    // Récupérer les allergènes (en texte)
+    let allergene = document.querySelectorAll('.allergene-name');
+    let allergeneList = [];
+    allergene.forEach(el => {
+        allergeneList.push(el.textContent.trim());
+    });
+    data['allergenes'] = allergeneList;
+
+    // Récupérer tous les champs du formulaire, même ceux non visibles
+    const elements = form.querySelectorAll('input, select, textarea');
+    elements.forEach(el => {
+        if (el.name) {
+            data[el.name] = el.value;
+        }
+    });
+
+    // Envoi via fetch
+    try {
+        const response = await fetch('http://127.0.0.1:8000/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Erreur serveur:', errorData);
+        } else {
+            const responseData = await response.json();
+            console.log('Succès:', responseData);
+        }
+    } catch (error) {
+        console.error('Erreur réseau:', error);
+    }
+});
+
