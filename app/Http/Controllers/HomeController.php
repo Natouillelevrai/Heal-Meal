@@ -92,7 +92,7 @@ class HomeController extends Controller
         $seasonDish = $seasonDish[0];
 
         return view('home', [
-            'title' => 'Accueil',
+            'title' => 'Heal Meal',
             'recettes' => $RecettesResult,
             'regimes' => $RegimeResult,
             'origins' => $OriginResult,

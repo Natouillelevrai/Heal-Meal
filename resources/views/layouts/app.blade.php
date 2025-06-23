@@ -1,4 +1,4 @@
-@props(['title'])
+@props(['title' => 'Heal Meal'])
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -25,8 +25,7 @@
         </x-header>
 
         <!-- #Main -->
-
-        <main class="w-full px-4 m-0 h-full">
+        <main class="w-full flex flex-col items-center px-5">
 
             {{ $slot }}
         </main>
