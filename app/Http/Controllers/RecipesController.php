@@ -41,7 +41,7 @@ class RecipesController
 
         return view('recipes-catalog', [
             'recettes' => $recettes,
-            'title' => 'Recipes Catalog'
+            'title' => 'Catalogue de recettes'
         ]);
     }
 }
