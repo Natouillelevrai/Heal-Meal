@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/recette/{ref}', [RecipesController::class, 'show'])->name('recette.show');
 Route::get('/recettes', [RecipesController::class, 'index'])->name('recettes');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
@@ -21,4 +23,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+
+require __DIR__.'/auth.php';

@@ -2,6 +2,7 @@ import { init } from "./fetch.js";
 
 const form = document.querySelector('#register-form');
 
+
 const steps = document.querySelectorAll('[data-step]');
 const stepTitle = document.querySelector('#stepTitle');
 const stepsTitle = ['', "Qui êtes-vous ?", "Information Utilisateur", "Une dernière chose"]
@@ -23,6 +24,7 @@ let allergeneData = [];
 function createTagAllergene(name) {
     let containAllergene = document.querySelector('.contain-tag-allergene')
     containAllergene.innerHTML += `<div class="flex gap-2 bg-gray-300 rounded-full px-2 py-1 delete-allergene">${name} <p class="text-red-600">🗑️</p></div>`;
+
     allergeneData.push(name);
     let deleteAllergenes = document.querySelectorAll('.delete-allergene')
     deleteAllergenes.forEach(deleteAllergene => {
@@ -33,7 +35,9 @@ function createTagAllergene(name) {
     })
 }
 
+
 data = await init('http://127.0.0.1:8000/api/allergenes');
+
 
 function sortData(q) {
     if (!q) return [];
@@ -151,6 +155,9 @@ function updateStepFocus() {
     });
 }
 
+
+init()
+
 updateStepFocus();
 
 nextStepBtn.addEventListener('click', () => {
@@ -169,6 +176,7 @@ nextStepBtn.addEventListener('click', () => {
 
 window.addEventListener('resize', () => {
     const nextSlide = document.querySelector(`[data-step="${currentStep}"]`);
+
     nextSlide.scrollIntoView({ behavior: 'smooth', inline: 'start' });
 })
 
@@ -185,3 +193,4 @@ form.addEventListener('submit', e => {
             console.error('Erreurs de validation:', errors);
         });
 });
+

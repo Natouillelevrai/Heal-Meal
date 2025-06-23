@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id('id_step');
             $table->string('name');
             $table->string('image')->nullable();
+            $table->string('video')->nullable();
             $table->longText('content');
             $table->unsignedBigInteger('id_recette');
             $table->foreign('id_recette')->references('id_recette')->on('recettes');

@@ -6,3 +6,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/allergenes', [AllergeneController::class, 'all'])->name('allergenes');
 Route::post('/register', [RegisteredUserController::class, 'store']);
+

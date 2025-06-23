@@ -3,11 +3,13 @@
 @endphp
 
 <x-app-layout :title="$title">
+
     <div class="w-full min-h-screen overflow-y-auto flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
         <form
             class="flex flex-col gap-y-4 w-full max-w-[400px] py-16 px-6 sm:px-12 bg-[#B7E7EB] rounded-2xl ring-2 ring-white shadow-lg"
             method="post"
             id="register-form">
+
             @csrf
 
             <h2 class="text-center text-xl uppercase tracking-widest font-bold">Inscription</h2>
@@ -48,6 +50,7 @@
                             <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname"
                                 :value="old('firstname')" autocomplete="firstname" placeholder="Entrez votre prénom"
                                 data-step="1" />
+
                             <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
                         </div>
 
@@ -66,8 +69,10 @@
                         <div>
                             <x-input-label for="email" :value="__('Email')" />
                             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+
                                 :value="old('email')" autofocus autocomplete="email" placeholder="exemple@mail.com"
                                 data-step="2" />
+
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
@@ -75,8 +80,10 @@
                         <div>
                             <x-input-label for="username" :value="__('Nom d\'utilisateur')" />
                             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
+
                                 :value="old('username')" autocomplete="username"
                                 placeholder="Choisissez votre nom d'utilisateur" data-step="2" />
+
                             <x-input-error :messages="$errors->get('username')" class="mt-2" />
                         </div>
 
@@ -84,7 +91,9 @@
                         <div>
                             <x-input-label for="password" :value="__('Mot de passe')" />
                             <x-text-input id="password" class="block mt-1 w-full" type="text" name="password"
+
                                 autocomplete="password" placeholder="Entrez un mot de passe sécurisé" data-step="2" />
+
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
 
@@ -104,8 +113,10 @@
                         <div>
                             <x-input-label for="regime" :value="__('Régime')" />
                             <select id="regime" name="regime"
+
                                 class="text-[#6E7173] bg-white px-4 py-2 ring-0 focus:ring-1 focus:ring-[#B7E7EB] rounded-lg shadow-sm block mt-1 w-full"
                                 data-step="3">
+
                                 <option value="">Aucun régime</option>
                                 <option value="omnivore">Omnivore</option>
                                 <option value="vegetarien">Végétarien</option>
@@ -121,6 +132,7 @@
                             <div>
                                 <x-text-input id="allergenes" type="search" name="allergenes" placeholder="Ajouter..."
                                     class="block w-full mt-1" autocomplete="off" :value="old('allergenes')" />
+
                                 <div class="w-full bg-white rounded-lg contain-search-result">
 
                                 </div>
@@ -139,6 +151,7 @@
                             <select id="objectif" name="objectif"
                                 class="text-[#6E7173] bg-white px-4 py-2 ring-0 focus:ring-1 focus:ring-[#B7E7EB] rounded-lg shadow-sm block mt-1 w-full"
                                 data-step="3">
+
                                 <option value="">Aucun objectif</option>
                                 <option value="perte-poids">Perte de poids</option>
                                 <option value="prise-masse">Prise de masse</option>
