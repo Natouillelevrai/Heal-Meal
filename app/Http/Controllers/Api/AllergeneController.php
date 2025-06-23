@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\All
+use App\Models\All;
+use App\Models\Origins;
+use App\Models\Recette;
+use App\Models\Regime;
+use Illuminate\Http\Request;
 
 class AllergeneController extends Controller
 {

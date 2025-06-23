@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div class="w-85/100 bg-[#B7E7EB] my-5 p-5 rounded-xl flex flex-col items-center">
+    <div class="w-full bg-[#B7E7EB] my-5 p-5 rounded-xl flex flex-col items-center">
         <h2 class="text-2xl text-center pb-3">Recette de saison :</h2>
         <img src={{ $seasonDish['image'] }} alt="Season Dish" class="w-full h-65 rounded-xl" />
         <p class="text-center pt-10 text-xl">{{ $seasonDish['name'] }}</p>
