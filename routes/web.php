@@ -7,11 +7,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/recettes', [RecipesController::class, 'index'])->name('recettes');
+Route::get('/recipes', [RecipesController::class, 'index'])->name('recipes');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
+
+Route::prefix('user')->group(function () {
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
