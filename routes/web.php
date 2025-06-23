@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/recipes/{id}', [RecipesController::class, 'show'])->name('recipe.show');
+Route::get('/recette/{ref}', [RecipesController::class, 'show'])->name('recette.show');
 Route::get('/recettes', [RecipesController::class, 'index'])->name('recettes');
 
 

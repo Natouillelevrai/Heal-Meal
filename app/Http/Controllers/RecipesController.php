@@ -47,7 +47,7 @@ class RecipesController
     }
   public function show($ref)
     {
-        $recette = Recette::with(['origine', 'user', 'ingredients', 'steps'])
+        $recette = Recette::with(['origin', 'user', 'ingredients', 'steps'])
             ->where('references', $ref)
             ->first();
 
