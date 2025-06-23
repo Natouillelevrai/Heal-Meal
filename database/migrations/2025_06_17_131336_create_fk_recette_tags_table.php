@@ -26,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('fk_recette_tags');
+        Schema::dropIfExists('fk_recettes_tags');
     }
 };

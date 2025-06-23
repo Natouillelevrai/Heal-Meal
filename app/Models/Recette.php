@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recette extends Model
 {
+
+    protected $table = 'recettes';
     protected $primaryKey = 'id_recette';
 
-    public function origine()
+
+    public function origin()
+
     {
         return $this->belongsTo(Origins::class, 'id_origine');
     }
@@ -27,5 +31,6 @@ class Recette extends Model
     {
         return $this->belongsToMany(Ingredient::class, 'fk_recettes_ingredients', 'id_recette', 'id_ingredient')
             ->withPivot('quantity', 'id_unit');
+
     }
 }
