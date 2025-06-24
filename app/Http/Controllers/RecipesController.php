@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Recette;
+use App\Models\Step;
 
 class RecipesController
 {
@@ -41,7 +42,24 @@ class RecipesController
 
         return view('recipes-catalog', [
             'recettes' => $recettes,
-            'title' => 'Recipes Catalog'
+            'title' => 'Catalogue de recettes'
         ]);
     }
+  public function show($ref)
+    {
+        $recette = Recette::with(['origin', 'user', 'ingredients', 'steps'])
+            ->where('references', $ref)
+            ->first();
+
+        if (!$recette) {
+            abort(404, 'Recette not found');
+            exit;
+        }
+
+        $recette = $recette->toArray();
+        
+        return view('details', [
+            'title' => $recette["name"] . ' - Heal Meal',
+            'recette' => $recette]);
+  }
 }
