@@ -110,10 +110,11 @@ function validateCurrentStep() {
 
 function showError(arr) {
     let containError = document.querySelector('.contain-error');
+    console.log(arr)
     containError.innerHTML = ''
-    if (arr === []) return;
+    if (arr.length === 0) return;
     for (const [key, value] of Object.entries(arr.errors)) {
-        containError.innerHTML += `<p>${value}</p>`;
+        containError.innerHTML += `<div class="p-2 bg-red-300 rounded-xl border border-red-700">${value}</div>`;
     }
 }
 

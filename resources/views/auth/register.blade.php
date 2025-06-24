@@ -161,7 +161,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="contain-error"></div>
+                <div class="contain-error flex flex-col gap-2"></div>
                 <div class="flex flex-col gap-y-2 items-center justify-end mt-4">
                     <x-primary-button :disabled="true" id="validate-form">
                         {{ __('Créer mon compte') }}
