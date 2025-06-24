@@ -10,14 +10,22 @@
             <img src="{{ $recette['image'] }}" alt="Recette Image" class="w-full h-45 object-cover rounded-lg mt-4">
 
             <div class="w-70/100 h-7 mt-5 mb-2 flex flex-row justify-between">
-                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-orange-500"><i
-                        class="ri-chat-4-line"></i></div>
-                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-yellow-500"><i
-                        class="ri-star-line"></i></div>
-                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-green-500"><i
-                        class="ri-bookmark-line"></i></div>
-                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-blue-500"><i
-                        class="ri-share-line"></i></div>
+                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-orange-500">
+                    <a href="#" class="ri-chat-4-line"></a>
+                </div>
+
+                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-yellow-500">
+                    <a href="#" class="ri-star-line"></a>
+                </div>
+
+                <div class="bg-white h-full w-10 p-1 rounded-lg flex flex-row justify-between items-center text-green-500">
+                    <a href="#" class="ri-bookmark-line"></a>
+                    <p class="text-black">{{ count($recette["favorite"]) }}</p>
+                </div>
+
+                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-blue-500">
+                    <a href="#" class="ri-share-line"></a>
+                </div>
             </div>
 
             <div class="mt-3">

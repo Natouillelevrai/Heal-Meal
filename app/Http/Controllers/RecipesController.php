@@ -46,9 +46,9 @@ class RecipesController
             'title' => 'Catalogue de recettes'
         ]);
     }
-  public function show($ref)
+    public function show($ref)
     {
-        $recette = Recette::with(['origin', 'user', 'ingredients', 'steps'])
+        $recette = Recette::with(['origin', 'user', 'ingredients', 'steps', 'favorite'])
             ->where('references', $ref)
             ->first();
 
@@ -58,9 +58,10 @@ class RecipesController
         }
 
         $recette = $recette->toArray();
-        
+
         return view('details', [
             'title' => $recette["name"] . ' - Heal Meal',
-            'recette' => $recette]);
-  }
+            'recette' => $recette
+        ]);
+    }
 }

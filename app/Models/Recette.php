@@ -12,7 +12,6 @@ class Recette extends Model
 
 
     public function origin()
-
     {
         return $this->belongsTo(Origins::class, 'id_origine');
     }
@@ -32,5 +31,10 @@ class Recette extends Model
         return $this->belongsToMany(Ingredient::class, 'fk_recettes_ingredients', 'id_recette', 'id_ingredient')
             ->withPivot('quantity', 'id_unit');
 
+    }
+
+    public function favorite()
+    {
+        return $this->hasMany(Favorite::class, 'id_recette');
     }
 }
