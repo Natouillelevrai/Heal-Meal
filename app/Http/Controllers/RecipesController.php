@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Recette;
 use App\Models\Step;
+use Illuminate\Support\Facades\Auth;
 
 class RecipesController
 {
@@ -61,7 +62,8 @@ class RecipesController
 
         return view('details', [
             'title' => $recette["name"] . ' - Heal Meal',
-            'recette' => $recette
+            'recette' => $recette,
+            'user' => Auth::user() ?? null
         ]);
     }
 }

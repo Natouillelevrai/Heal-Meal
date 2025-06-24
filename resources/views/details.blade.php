@@ -1,5 +1,5 @@
 <x-app-layout :title="$title">
-    <div class="w-full bg-[#B7E7EB] mt-5 p-5 rounded-xl flex flex-col items-center">
+    <div class="w-full bg-[#B7E7EB] mt-2 p-5 rounded-xl flex flex-col items-center">
         <div class="w-full flex flex-col items-center">
             <div class="w-full flex items-center justify-between">
                 <h1 class="text-xl">{{ $recette["name"] }}</h1>
@@ -11,20 +11,28 @@
 
             <div class="w-70/100 h-7 mt-5 mb-2 flex flex-row justify-between">
                 <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-orange-500">
-                    <a href="#" class="ri-chat-4-line"></a>
+                    <button class="ri-chat-4-line"></button>
                 </div>
 
                 <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-yellow-500">
-                    <a href="#" class="ri-star-line"></a>
+                    <button class="ri-star-line"></button>
                 </div>
 
-                <div class="bg-white h-full w-10 p-1 rounded-lg flex flex-row justify-between items-center text-green-500">
-                    <a href="#" class="ri-bookmark-line"></a>
+                <form id="favForm"
+                    class="bg-white h-full w-10 p-1 rounded-lg flex flex-row justify-between items-center text-green-500">
+                    @if($user)
+                        <input type="hidden" value="{{ $recette["id_recette"] }}" name="id_recette">
+                        <input type="hidden" value="{{ $recette["user"]["id_user"] }}" name="id_user">
+
+                        <button class="ri-bookmark-line" type="submit"></button>
+                    @else
+                        <i class="ri-bookmark-line"></i>
+                    @endif
                     <p class="text-black">{{ count($recette["favorite"]) }}</p>
-                </div>
+                </form>
 
                 <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-blue-500">
-                    <a href="#" class="ri-share-line"></a>
+                    <button class="ri-share-line"></button>
                 </div>
             </div>
 
@@ -65,4 +73,6 @@
             </div>
         </div>
     </div>
+
+    @vite(['resources/js/favorites.js'])
 </x-app-layout>
