@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\FkAllergenesUsers;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
 
 class RegisteredUserController extends Controller
 {
@@ -22,29 +24,49 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): JsonResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        $validated = $request->validate([
+            'lastname' => ['required', 'string', 'max:255'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'birth' => ['required', 'date','before:today'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'regime' => ['nullable', 'string'],
+            'allergenes' => ['nullable', 'array'], // À adapter si tu stockes en JSON
+            'objectif' => ['nullable', 'string'],
         ]);
+        try {
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+            $user = User::create([
+                'firstName' => $validated['firstname'],
+                'lastName' => $validated['lastname'],
+                'username' => $validated['username'],
+                'birth' => $validated['birth'],
+                'email' => $validated['email'],
+                'id_roles' => 2,
+                'password' => Hash::make($validated['password']),
+                'regime' => $validated['regime'] ?? null,
+                'objectif' => $validated['objectif'] ?? null,
+            ]);
 
-        event(new Registered($user));
+            foreach ($validated['allergenes'] as $allergen) {
+                FkAllergenesUsers::create([
+                    'user_id' => $user->id,
+                    'allergen_id' => $allergen,
+                ]);
+            }
 
-        Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+            event(new Registered($user));
+
+            Auth::login($user);
+
+            return response()->json(['message' => 'User successfully registered.']);
+
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()]);
+        }
     }
 }

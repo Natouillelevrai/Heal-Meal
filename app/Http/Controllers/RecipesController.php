@@ -20,6 +20,7 @@ class RecipesController
             ->leftJoin('regime', 'fk_ingredient_regime.id_regime', '=', 'regime.id_regime')
             ->select(
                 'recettes.id_recette',
+                'recettes.references',
                 'recettes.name',
                 'recettes.image',
                 'recettes.desc',
@@ -42,7 +43,7 @@ class RecipesController
 
         return view('recipes-catalog', [
             'recettes' => $recettes,
-            'title' => 'Recipes Catalog'
+            'title' => 'Catalogue de recettes'
         ]);
     }
   public function show($ref)
