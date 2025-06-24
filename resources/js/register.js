@@ -20,9 +20,9 @@ let currentStep = 1;
 let data = [];
 let allergeneData = [];
 
-function createTagAllergene(name) {
+function createTagAllergene(name,id) {
     let containAllergene = document.querySelector('.contain-tag-allergene')
-    containAllergene.innerHTML += `<div class="flex gap-2 bg-gray-300 rounded-full px-2 py-1 delete-allergene"><p class="allergene-value">${name}</p> <p class="text-red-600">🗑️</p></div>`;
+    containAllergene.innerHTML += `<div class="flex gap-2 bg-gray-300 rounded-full px-2 py-1 delete-allergene"><p class="allergene-value" data-id="${id}">${name}</p> <p class="text-red-600">🗑️</p></div>`;
     allergeneData.push(name);
     let deleteAllergenes = document.querySelectorAll('.delete-allergene')
     deleteAllergenes.forEach(deleteAllergene => {
@@ -53,21 +53,21 @@ function sortData(q) {
         .slice(0, 5)
 }
 
-function createAllergeneSearch(text) {
+function createAllergeneSearch(text,id) {
     let containSearchResult = document.querySelector('.contain-search-result');
-    containSearchResult.innerHTML += `<p class="divSearch">${text}</p>`;
+    containSearchResult.innerHTML += `<p class="divSearch" data-id="${id}">${text}</p>`;
 }
 
 searchInput.addEventListener('input', function () {
     let dataSort = sortData(searchInput.value)
     document.querySelector('.contain-search-result').innerHTML = "";
     dataSort.forEach(data => {
-        createAllergeneSearch(data.name);
+        createAllergeneSearch(data.name,data.id_allergenes);
     })
     let searchDiv = document.querySelectorAll('.divSearch')
     searchDiv.forEach(searchInput => {
         searchInput.addEventListener('click', () => {
-            createTagAllergene(searchInput.textContent);
+            createTagAllergene(searchInput.textContent, searchInput.dataset.id);
             document.querySelector('.contain-search-result').innerHTML = "";
             searchInput.value = ""
         })
@@ -104,6 +104,14 @@ function validateCurrentStep() {
     return valid;
 }
 
+function showError(arr) {
+    let containError = document.querySelector('.contain-error');
+    containError.innerHTML = ''
+    if (arr === []) return;
+    for (const [key, value] of Object.entries(arr.errors)) {
+        containError.innerHTML += `<p>${value}</p>`;
+    }
+}
 
 function setButtonDisabled(isDisabled, parent, btn) {
     if (isDisabled) {
@@ -151,6 +159,30 @@ function updateStepFocus() {
     });
 }
 
+function stepOne() {
+    currentStep = 1;
+    updateStepFocus();
+    const nextSlide = document.querySelector(`[data-step="${currentStep}"]`);
+    nextSlide.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+
+    numbersProgress.forEach((number, index) => {
+        index++;
+        if (index <= currentStep) {
+            number.classList.remove('bg-[#FFF7EB]', 'text-[#0E2F46]');
+            number.classList.add('bg-[#0E2F46]', 'text-[#FFF7EB]');
+        } else {
+            number.classList.remove('bg-[#0E2F46]', 'text-[#FFF7EB]');
+            number.classList.add('bg-[#FFF7EB]', 'text-[#0E2F46]');
+        }
+    });
+    stepProgress.style.width = stepsProgress[currentStep];
+    stepTitle.textContent = stepsTitle[currentStep];
+    setButtonDisabled(false, submitButton, nextStepBtn);
+    const firstStep = document.querySelector('[data-step="1"]');
+    firstStep.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+}
+
+
 updateStepFocus();
 
 nextStepBtn.addEventListener('click', () => {
@@ -184,15 +216,17 @@ form.addEventListener('submit', e => {
         dataRegister[key] = value;
     }
     const allergeneElements = document.querySelectorAll('.allergene-value');
-    const allergenes = Array.from(allergeneElements).map(el => el.textContent.trim());
+    const allergenes = Array.from(allergeneElements).map(el => el.dataset.id.trim());
 
     dataRegister.allergenes = allergenes;
     disabledFields.forEach(field => field.setAttribute('disabled', 'disabled'));
-    init('http://localhost:8000/api/register', dataRegister)
+    init('http://127.0.0.1:8000/api/register', dataRegister)
         .then(data => {
-            console.log('Succès:', data);
+            stepOne()
+            showError([])
         })
         .catch(errors => {
-            console.error('Erreurs de validation:', errors);
+            showError(errors);
+            stepOne()
         });
 });
