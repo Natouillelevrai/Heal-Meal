@@ -13,8 +13,14 @@ class ProfileController extends Controller
 {
 
     public function index() {
-        return view('profile/profil',['title' => 'Profile']);
+        $user = Auth::user();
+
+        return view('profile/profil', [
+            'title' => 'Profile',
+            'user' => $user
+        ]);
     }
+
     /**
      * Display the user's profile form.
      */
