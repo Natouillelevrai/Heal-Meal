@@ -31,7 +31,6 @@
                 <x-star-counter :rate="$recette->rate"></x-star-counter>
 
             </div>
-
         </div>
     </a>
 </div>
