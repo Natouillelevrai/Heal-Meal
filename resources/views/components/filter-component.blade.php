@@ -4,9 +4,9 @@
     $tab = !$admin ? ['teste01', 'teste02', 'teste03'] : ['admin01', 'admin02', 'admin03'];
 @endphp
 
-<div class="w-full flex items-center justify-between gap-x-12">
+<div class="w-full flex items-center justify-between gap-x-12 pb-12">
     @if (!$admin)
-        <div class="flex flex-wrap justify-between md:justify-start gap-y-2 md:gap-y-0 rounded-xl">
+        <div class="flex flex-wrap justify-between md:justify-start gap-2 md:gap-0 md:gap-y-0 rounded-xl">
             @foreach ($tab as $key => $filterCard)
                 <x-filter-card :name="$filterCard" :index="$key" :length="count($tab)" />
             @endforeach

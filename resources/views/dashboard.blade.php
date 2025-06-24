@@ -6,6 +6,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
+
+                    @foreach($recettes as $recette)
+                        <x-recipes-card :recette="$recette" />
+                    @endforeach
+                </div>
+
+                <div class="mt-3 w-full flex justify-center h-5 py-7">
+                    {{ $recettes->links('pagination::tailwind') }}
                 </div>
             </div>
         </div>
