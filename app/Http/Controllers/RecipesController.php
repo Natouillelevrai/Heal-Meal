@@ -20,6 +20,7 @@ class RecipesController
             ->leftJoin('regime', 'fk_ingredient_regime.id_regime', '=', 'regime.id_regime')
             ->select(
                 'recettes.id_recette',
+                'recettes.references',
                 'recettes.name',
                 'recettes.image',
                 'recettes.desc',
