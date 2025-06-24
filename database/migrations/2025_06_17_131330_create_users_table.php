@@ -20,7 +20,8 @@ return new class extends Migration {
 
             $table->string('email')->unique();
             $table->string('password');
-
+            $table->enum('regime', ['', 'omnivore', 'vegetarien', 'vegan','sans-gluten']);
+            $table->enum('objectif', ['', 'perte-poids', 'prise-masse', 'maintien']);
             $table->rememberToken();
 
             $table->unsignedBigInteger('id_roles');
