@@ -1,33 +1,31 @@
 async function getData(url = null, body = null) {
-  if (!url) {
-    return;
-  }
+    if (!url) return;
 
-  const options = {
-    method: body ? 'POST' : 'GET',
-    headers: {},
-    body: undefined,
-  };
-
-  if (body instanceof FormData) {
-    options.body = body;
-  } else if (body) {
-    options.headers = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
+    const options = {
+        method: body ? 'POST' : 'GET',
+        headers: {},
+        body: undefined,
     };
-    options.body = JSON.stringify(body);
-  }
 
-  const response = await fetch(url, options);
+    if (body && typeof body === 'object' && !(body instanceof FormData)) {
+        options.headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        };
+        options.body = JSON.stringify(body);
+        console.log('Envoi JSON :', options.body);
+    }
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw errorData;
-  }
+    const response = await fetch(url, options);
 
-  return await response.json();
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw errorData;
+    }
+
+    return await response.json();
 }
+
 
 async function init(url, body = null) {
   return await getData(url, body);

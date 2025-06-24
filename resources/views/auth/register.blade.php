@@ -93,9 +93,9 @@
                         <div>
                             <x-input-label for="verify-password" :value="__('Vérification mot de passe')" />
                             <x-text-input id="verify-password" class="block mt-1 w-full" type="text"
-                                name="verify-password" autocomplete="verify-password"
+                                name="password_confirmation" autocomplete="password_confirmation"
                                 placeholder="Confirmez le mot de passe" data-step="2" />
-                            <x-input-error :messages="$errors->get('verify-password')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
                     </div>
 
@@ -149,7 +149,7 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="contain-error flex flex-col gap-2"></div>
                 <div class="flex flex-col gap-y-2 items-center justify-end mt-4">
                     <x-primary-button :disabled="true" id="validate-form">
                         {{ __('Créer mon compte') }}
