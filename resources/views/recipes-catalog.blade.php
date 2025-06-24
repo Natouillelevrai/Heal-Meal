@@ -1,48 +1,39 @@
 <x-app-layout :title="$title">
-    <section>
+    <section class="w-full">
         @foreach($recettes as $recette)
-            <a href="{{ route('recette.show', $recette->references) }}" class="block">
-                <div class="h-36 my-5 pl-4 flex flex-row justify-between bg-white rounded-xl shadow-sm  shadow-gray-500">
+            <a href="{{ route('recette.show', $recette->references) }}" class="block w-full">
+                <div class="w-full h-36 my-5 flex bg-white rounded-xl shadow-md overflow-hidden">
 
-                    <div class="flex flex-col  justify-around h-full">
-                        <h3 class="text-sm font-semibold py-2">{{$recette->name}}</h3>
-                        <p>{{$recette->user_name}}</p>
-                        <div class="h-18 flex flex-col justify-around">
-                            <p>{{$recette->origin_name}}</p>
-                            <p class="text-sm">{{$recette->regimes}}</p>
+                    {{-- Partie texte --}}
+                    <div class="flex flex-col justify-around w-6/12 h-full pl-4 pr-2 z-10 bg-white">
+                        <h3 class="text-base font-semibold py-2">{{ $recette->name }}</h3>
+                        <p class="text-sm text-gray-700">{{ $recette->user_name }}</p>
+                        <div class="flex flex-col">
+                            <p class="text-sm text-gray-600">{{ $recette->origin_name }}</p>
+                            <p class="text-xs text-gray-500">{{ $recette->regimes }}</p>
                         </div>
                     </div>
 
-                    <div class="flex flex-row items-end w-7/12 h-full bg-amber-200 rounded-r-xl">
-                        <div class="absolute h-36 w-1/5 bg-gradient bg-gradient-to-r from-white to-transparent">
+                    <div class="flex flex-col justify-between items-end w-6/12 h-full rounded-r-xl p-2 text-yellow-400" style="background-image:
+                                    linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)),
+                                    url('{{ $recette->image }}');
+                                    background-size: cover;
+                                    background-position: center;">
+
+                        
+                        <div class="bg-[#0E2F46] w-8 h-8 rounded text flex justify-center items-center text-xl text-green-700">
+                            <i class="ri-bookmark-line"></i>
                         </div>
 
-                        <div class="absolute flex my-3 ml-[12%] justify-center text-[1.7ej] leading-none">
-                            <div class="text-yellow-400 flex space-x-1">
-                                @for ($i = 0; $i < 5; $i++)
-                                    <i class="ri-star-line"></i>
-                                @endfor
-                            </div>
+                        <x-star-counter :rate="$recette->rate"></x-star-counter>
 
-                            <div class="absolute top-0 left-0 text-yellow-400 flex space-x-1 overflow-hidden"
-                                style="width: calc({{ $recette->rate }} * 20%)">
-                                @for ($i = 0; $i < 5; $i++)
-                                    <i class="ri-star-fill"></i>
-                                @endfor
-                            </div>
-                        </div>
-
-                        <div
-                            class="absolute font-semibold rounded-lg flex text-2xl justify-center items-center right-5 h-8 w-8 my-25 ml-5 bg-[#0E2C46]">
-                            <i class="ri-bookmark-line text-[#35A650]"></i>
-                        </div>
-
-                        <img class="w-full h-36 rounded-r-2xl object-cover" src="{{ $recette->image }}" alt="">
                     </div>
+
                 </div>
             </a>
         @endforeach
-        <div class="mt-6 w-full flex justify-center h-5 w-5 py-10">
+
+        <div class="mt-6 w-full flex justify-center py-10">
             {{ $recettes->links('pagination::tailwind') }}
         </div>
     </section>
