@@ -1,4 +1,4 @@
-@props(['recette'])
+@props(['recette', 'admin' => false])
 
 <div class="relative">
     <a href="{{ route('recette.show', $recette->references) }}" class="block w-full">
@@ -23,13 +23,27 @@
                                     background-size: cover;
                                     background-position: center;">
 
+                @if ($admin)
+                    <div class="bg-[#0E2F46] w-8 h-8 rounded-lg text flex justify-center items-center text-xl text-white">
+                        <i class="ri-edit-circle-line"></i>
+                    </div>
+                    <div class="bg-[#0E2F46] w-8 h-8 rounded-lg text flex justify-center items-center text-xl text-white">
+                        <i class="ri-delete-bin-6-line"></i>
+                    </div>
+                    <div class="bg-[#0E2F46] w-8 h-8 rounded-lg text flex justify-center items-center text-xl text-white">
+                        <i class="ri-user-settings-line"></i>
+                    </div>
+                @else
+                    <div class="bg-[#0E2F46] w-8 h-8 rounded text flex justify-center items-center text-xl text-white">
+                        <i class="ri-bookmark-line"></i>
+                    </div>
+                @endif
 
-                <div class="bg-[#0E2F46] w-8 h-8 rounded text flex justify-center items-center text-xl text-white">
-                    <i class="ri-bookmark-line"></i>
-                </div>
 
-                <x-star-counter :rate="$recette->rate"></x-star-counter>
 
+                @if (!$admin)
+                    <x-star-counter :rate="$recette->rate"></x-star-counter>
+                @endif
             </div>
         </div>
     </a>
