@@ -89,7 +89,7 @@ class HomeController extends Controller
             ->limit(1)
             ->get();
 
-        $seasonDish = $seasonDish[0];
+        $seasonDish = $seasonDish->first(); // ✅ Renvoie null si rien trouvé
 
         return view('home', [
             'title' => 'Heal Meal',
