@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorite;
 use Illuminate\Support\Facades\DB;
 use App\Models\Recette;
 use App\Models\Step;
@@ -25,6 +26,7 @@ class RecipesController
                 'recettes.name',
                 'recettes.image',
                 'recettes.desc',
+                'users.id_user as id_user',
                 'users.username as user_name',
                 'origins.name as origin_name',
                 DB::raw('AVG(rating.rate) as rate'),
@@ -36,15 +38,22 @@ class RecipesController
                 'recettes.name',
                 'recettes.image',
                 'recettes.desc',
+                'users.id_user',
                 'users.username',
                 'origins.name'
             )
             ->paginate(12);
 
+        $favorites = collect(); // valeur par défaut vide
+
+        if (Auth::check()) {
+            $favorites = Favorite::where('id_user', Auth::id())->get();
+        }
 
         return view('recipes-catalog', [
             'recettes' => $recettes,
-            'title' => 'Catalogue de recettes'
+            'title' => 'Catalogue de recettes',
+            'favorites' => $favorites,  // toujours défini
         ]);
     }
     public function show($ref)
@@ -60,10 +69,16 @@ class RecipesController
 
         $recette = $recette->toArray();
 
+        $favorites = collect();
+
+        if (Auth::check()) {
+            $favorites = Favorite::where('id_user', Auth::id())->get();
+        }
+
         return view('details', [
             'title' => $recette["name"] . ' - Heal Meal',
             'recette' => $recette,
-            'user' => Auth::user() ?? null
+            'favorites' => $favorites,  // toujours défini
         ]);
     }
 }

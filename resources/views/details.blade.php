@@ -18,17 +18,21 @@
                     <button class="ri-star-line"></button>
                 </div>
 
-                <form id="favForm"
-                    class="bg-white h-full w-10 p-1 rounded-lg flex flex-row justify-between items-center text-green-500">
-                    @if($user)
-                        <input type="hidden" value="{{ $recette["id_recette"] }}" name="id_recette">
-                        <input type="hidden" value="{{ $recette["user"]["id_user"] }}" name="id_user">
+                @php $isFav = $favorites->contains('id_recette', $recette['id_recette']); @endphp
 
-                        <button class="ri-bookmark-line" type="submit"></button>
-                    @else
+                <form class="favForm bg-white h-full w-10 p-1 rounded-lg flex items-center text-green-500">
+                    @auth
+                        <input type="hidden" name="id_recette" value="{{ $recette['id_recette'] }}">
+                        <input type="hidden" name="id_user" value="{{ auth()->id() }}">
+
+                        <button type="submit" class="icon {{ $isFav ? 'ri-bookmark-fill' : 'ri-bookmark-line' }}"></button>
+                    @endauth
+
+                    @guest
                         <i class="ri-bookmark-line"></i>
-                    @endif
-                    <p class="text-black">{{ count($recette["favorite"]) }}</p>
+                    @endguest
+
+                    <span class="fav-count text-black pl-1">{{ count($recette['favorite']) }}</span>
                 </form>
 
                 <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-blue-500">

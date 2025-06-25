@@ -1,38 +1,50 @@
-const favForm = document.querySelector("#favForm");
+const favForms = document.querySelectorAll('.favForm');
 
-if (favForm) {
-    favForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
+if (favForms.length) {
+    document.addEventListener('DOMContentLoaded', () => {
+        favForms.forEach(form => {
+            form.addEventListener('submit', async e => {
+                e.preventDefault();
 
-        const userId = favForm.querySelector("input[name='id_user']").value;
-        const recetteId = favForm.querySelector("input[name='id_recette']").value;
+                const btn       = form.querySelector('.icon');
+                const countEl   = form.querySelector('.fav-count');   // ← présent uniquement sur la page Détails
+                const hasCount  = !!countEl;                          // ← true = page Détails
+                let   count     = hasCount ? parseInt(countEl.textContent, 10) || 0 : 0;
 
-        try {
-            const response = await fetch("http://127.0.0.1:8000/api/addFavorite", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json"
-                },
-                body: JSON.stringify({
-                    id_user: userId,
-                    id_recette: recetteId
-                })
+                const recetteId = form.querySelector('[name="id_recette"]').value;
+                const userId    = form.querySelector('[name="id_user"]').value;
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+                btn.disabled = true;
+
+                try {
+                    const res   = await fetch('/api/favorites/toggle', {
+                        method      : 'POST',
+                        credentials : 'same-origin',
+                        headers     : {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept'      : 'application/json'
+                        },
+                        body        : JSON.stringify({ id_recette: recetteId, id_user: userId })
+                    });
+                    const { status } = await res.json();
+
+                    if (status === 'added') {
+                        btn.classList.replace('ri-bookmark-line',  'ri-bookmark-fill');
+                        if (hasCount) countEl.textContent = ++count;
+                    } else if (status === 'removed') {
+                        btn.classList.replace('ri-bookmark-fill', 'ri-bookmark-line');
+                        if (hasCount) countEl.textContent = --count;
+                    } else {
+                        console.error('Réponse API inattendue :', status);
+                    }
+                } catch (err) {
+                    console.error('Erreur réseau :', err);
+                } finally {
+                    btn.disabled = false;
+                }
             });
-
-            const result = await response.json();
-
-            if (response.ok && result.ResultCode === 200) {
-                console.log("Favori ajouté !");
-            } 
-            
-            else {
-                console.error("Erreur lors de l'ajout du favori :", result);
-            }
-        } 
-        
-        catch (err) {
-            console.error("Erreur réseau :", err.message);
-        }
+        });
     });
 }
