@@ -4,7 +4,10 @@
     <div class="w-full h-36 my-5 flex bg-white rounded-xl shadow-md overflow-hidden">
 
         {{-- Partie texte --}}
-        <div class="flex flex-col justify-around w-6/12 h-full pl-3 pr-2 z-10 bg-white">
+        <div class="flex flex-col justify-around w-6/12 h-full pl-3 pr-2 z-10 bg-white relative">
+            @if (!$admin)
+                <a href="{{ route('recette.show', $recette->references) }}" class="absolute w-full h-full"></a>
+            @endif
             <div class="flex flex-col">
                 <h3 class="text-base font-semibold">{{ $recette->name }}</h3>
 
