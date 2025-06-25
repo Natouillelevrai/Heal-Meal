@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/allergenes', [AllergeneController::class, 'all'])->name('allergenes');
 
-Route::post('/favorites/toggle', [ApiRecetteController::class, 'toggle'])
-     ->name('favorites.toggle');
+Route::post('/favorites/toggle', [ApiRecetteController::class, 'toggle'])->name('favorites.toggle');
 Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::post('/userDetail', [RecipesController::class, 'user']);

@@ -22,12 +22,17 @@
             <li><a href="/">Accueil</a></li>
             <li><a href="/recettes">Recettes</a></li>
             <li><a href="/categorie">Categorie</a></li>
-            <li><a href="/profil">Profil</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/log-out">Log out</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/recettes/add">Créer une recette</a></li>
-            <li><a href="/admin">Admin</a></li>
+
+            @guest
+                <li><a href="/login">Login</a></li>
+            @endguest
+
+            @auth
+                <li><a href="/profile">Profil</a></li>
+                <li><a href="/recettes/add">Créer une recette</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <li><a href="/log-out">Log out</a></li>
+            @endauth
         </ul>
     </div>
     @vite('resources/js/burger-menu-header.js')
