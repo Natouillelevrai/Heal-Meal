@@ -9,7 +9,7 @@ class HomePageTest extends TestCase
     /**
      * A basic unit test example.
      */
-    public function test_example(): void
+    public function test_home_page(): void
     {
         $this->assertTrue(true);
     }
