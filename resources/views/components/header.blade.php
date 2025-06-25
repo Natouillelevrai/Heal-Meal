@@ -20,12 +20,18 @@
         class="bg-white ring-3 ring-white rounded-b-xl contain-expend-burger-menu transition-all origin-top scale-y-0 opacity-0 ease-in duration-200 shadow-md shadow-black overflow-y-auto max-h-[calc(100vh-8rem)] -z-10">
         <ul class="flex flex-col gap-5 py-5 text-xl text-center">
             <li><a href="/">Accueil</a></li>
-            <li><a href="/recettes">Recettes</a></li>
-            <li><a href="/categorie">Categorie</a></li>
+            <li><a href="/recipes">Recettes</a></li>
+            <li><a href="/category">Categorie</a></li>
             <li><a href="/profil">Profil</a></li>
             <li><a href="/login">Login</a></li>
-            <li><a href="/log-out">Log out</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="cursor-pointer">
+                        Log out
+                    </button>
+                </form>
+            </li>
             <li><a href="/recettes/add">Créer une recette</a></li>
             <li><a href="/admin">Admin</a></li>
         </ul>
