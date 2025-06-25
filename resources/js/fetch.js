@@ -5,9 +5,13 @@ async function getData(url = null, body = null) {
         method: body ? 'POST' : 'GET',
         headers: {},
         body: undefined,
+        mode: 'cors' // optionnel, selon ton backend
     };
 
-    if (body && typeof body === 'object' && !(body instanceof FormData)) {
+    if (body instanceof FormData) {
+        options.body = body;
+        options.headers['Accept'] = 'application/json';
+    } else if (body && typeof body === 'object') {
         options.headers = {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
@@ -19,16 +23,25 @@ async function getData(url = null, body = null) {
     const response = await fetch(url, options);
 
     if (!response.ok) {
-        const errorData = await response.json();
+        let errorData;
+        try {
+            errorData = await response.json();
+        } catch (e) {
+            errorData = { message: response.statusText, status: response.status };
+        }
         throw errorData;
     }
 
     return await response.json();
 }
 
-
 async function init(url, body = null) {
-  return await getData(url, body);
+    try {
+        return await getData(url, body);
+    } catch (error) {
+        console.error('Erreur dans init:', error);
+        throw error;
+    }
 }
 
 export { getData, init };
