@@ -1,4 +1,5 @@
 import { init } from "./fetch.js";
+import { validateField, showErrorFields } from "./error.js";
 
 const form = document.querySelector('#register-form');
 
@@ -20,7 +21,7 @@ let currentStep = 1;
 let data = [];
 let allergeneData = [];
 
-function createTagAllergene(name,id) {
+function createTagAllergene(name, id) {
     let containAllergene = document.querySelector('.contain-tag-allergene')
     containAllergene.innerHTML += `<div class="flex gap-2 bg-gray-300 rounded-full px-2 py-1 delete-allergene"><p class="allergene-value" data-id="${id}">${name}</p> <p class="text-red-600">🗑️</p></div>`;
 
@@ -54,7 +55,7 @@ function sortData(q) {
         .slice(0, 5)
 }
 
-function createAllergeneSearch(text,id) {
+function createAllergeneSearch(text, id) {
     let containSearchResult = document.querySelector('.contain-search-result');
     containSearchResult.innerHTML += `<p class="divSearch px-4 py-2" data-id="${id}">${text}</p>`;
 }
@@ -63,7 +64,7 @@ searchInput.addEventListener('input', function () {
     let dataSort = sortData(searchInput.value)
     document.querySelector('.contain-search-result').innerHTML = "";
     dataSort.forEach(data => {
-        createAllergeneSearch(data.name,data.id_allergenes);
+        createAllergeneSearch(data.name, data.id_allergenes);
     })
     let searchDiv = document.querySelectorAll('.divSearch')
     searchDiv.forEach(searchInput => {
@@ -83,36 +84,9 @@ function validateCurrentStep() {
         const value = field.value.trim();
         const name = field.getAttribute('name');
         field.classList.remove('border', 'border-red-500');
-        if (name === 'email') {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
-                valid = false;
-                field.classList.add('border-red-500');
-            }
-        } else if (name === 'verify-password') {
-            const password = document.querySelector('input[name="password"]').value.trim();
-            if (value !== password || value === '') {
-                valid = false;
-                field.classList.add('border', 'border-red-500');
-            }
-        } else {
-            if (!value || value.length < 3) {
-                valid = false;
-                field.classList.add('border', 'border-red-500');
-            }
-        }
+        valid = validateField(name, value);
     });
     return valid;
-}
-
-function showError(arr) {
-    let containError = document.querySelector('.contain-error');
-    console.log(arr)
-    containError.innerHTML = ''
-    if (arr.length === 0) return;
-    for (const [key, value] of Object.entries(arr.errors)) {
-        containError.innerHTML += `<div class="p-2 bg-red-300 rounded-xl border border-red-700">${value}</div>`;
-    }
 }
 
 function setButtonDisabled(isDisabled, parent, btn) {
@@ -161,28 +135,33 @@ function updateStepFocus() {
     });
 }
 
+function ChooseStep(value = 1) {
+    if (value > 3 || value < 1) {
+        return;
+    }
 
-function stepOne() {
-    currentStep = 1;
-    updateStepFocus();
-    const nextSlide = document.querySelector(`[data-step="${currentStep}"]`);
-    nextSlide.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+    let currentStep = value;
 
-    numbersProgress.forEach((number, index) => {
-        index++;
-        if (index <= currentStep) {
-            number.classList.remove('bg-[#FFF7EB]', 'text-[#0E2F46]');
-            number.classList.add('bg-[#0E2F46]', 'text-[#FFF7EB]');
-        } else {
-            number.classList.remove('bg-[#0E2F46]', 'text-[#FFF7EB]');
-            number.classList.add('bg-[#FFF7EB]', 'text-[#0E2F46]');
-        }
+    steps.forEach(step => {
+        const isActive = parseInt(step.getAttribute('data-step')) === currentStep;
+
+        const focusables = step.querySelectorAll(
+            'input, select, textarea, button, [tabindex]'
+        );
+
+        focusables.forEach(el => {
+            if (isActive) {
+                el.removeAttribute('tabindex');
+                el.removeAttribute('disabled');
+            } else {
+                el.setAttribute('tabindex', '-1');
+                el.setAttribute('disabled', 'disabled');
+            }
+        });
     });
-    stepProgress.style.width = stepsProgress[currentStep];
-    stepTitle.textContent = stepsTitle[currentStep];
-    setButtonDisabled(false, submitButton, nextStepBtn);
-    const firstStep = document.querySelector('[data-step="1"]');
-    firstStep.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+
+    const Step = document.querySelector(`[data-step="${currentStep}"]`);
+    Step.scrollIntoView({ behavior: 'smooth', inline: 'start' });
 }
 
 
@@ -226,12 +205,22 @@ form.addEventListener('submit', e => {
     disabledFields.forEach(field => field.setAttribute('disabled', 'disabled'));
     init('http://127.0.0.1:8000/api/register', dataRegister)
         .then(data => {
-            stepOne()
-            showError([])
+            ChooseStep(1)
         })
         .catch(errors => {
-            showError(errors);
-            stepOne()
+            let errorStep = 3;
+            for (const [key, value] of Object.entries(errors.errors)) {
+                showErrorFields(key, value);
+
+                const field = document.querySelector(`input[name="${key}"], select[name="${key}"]`);
+                const step = parseFloat(field.getAttribute('data-step'));
+
+                if (step) {
+                    errorStep = parseFloat(step) < errorStep ? parseFloat(step) : errorStep;
+                }
+            }
+
+            ChooseStep(errorStep);
         });
 });
 

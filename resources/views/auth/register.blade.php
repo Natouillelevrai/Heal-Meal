@@ -39,7 +39,7 @@
                             <x-text-input id="lastname" class="block mt-1 w-full" type="text" name="lastname"
                                 :value="old('lastname')" autofocus autocomplete="lastname"
                                 placeholder="Entrez votre nom" data-step="1" />
-                            <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
+                            <div class="text-sm error-lastname mt-2 text-red-600"></div>
                         </div>
 
                         <!-- Prénom -->
@@ -48,7 +48,7 @@
                             <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname"
                                 :value="old('firstname')" autocomplete="firstname" placeholder="Entrez votre prénom"
                                 data-step="1" />
-                            <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
+                            <div class="text-sm error-firstname mt-2 text-red-600"></div>
                         </div>
 
                         <!-- Date de naissance -->
@@ -56,7 +56,7 @@
                             <x-input-label for="birth" :value="__('Date de naissance')" />
                             <x-text-input id="birth" class="block mt-1 w-full" type="date" name="birth"
                                 autocomplete="birth" placeholder="JJ/MM/AAAA" data-step="1" />
-                            <x-input-error :messages="$errors->get('birth')" class="mt-2" />
+                            <div class="text-sm error-birth mt-2 text-red-600"></div>
                         </div>
                     </div>
 
@@ -68,7 +68,7 @@
                             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
                                 :value="old('email')" autofocus autocomplete="email" placeholder="exemple@mail.com"
                                 data-step="2" />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            <div class="text-sm error-email mt-2 text-red-600"></div>
                         </div>
 
                         <!-- Pseudo -->
@@ -77,7 +77,7 @@
                             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
                                 :value="old('username')" autocomplete="username"
                                 placeholder="Choisissez votre nom d'utilisateur" data-step="2" />
-                            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+                            <div class="text-sm error-username mt-2 text-red-600"></div>
                         </div>
 
                         <!-- Mot de passe -->
@@ -85,16 +85,16 @@
                             <x-input-label for="password" :value="__('Mot de passe')" />
                             <x-text-input id="password" class="block mt-1 w-full" type="text" name="password"
                                 autocomplete="password" placeholder="Entrez un mot de passe sécurisé" data-step="2" />
-                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                            <div class="text-sm error-password mt-2 text-red-600"></div>
                         </div>
 
                         <!-- Vérification mot de passe -->
                         <div>
                             <x-input-label for="verify-password" :value="__('Vérification mot de passe')" />
                             <x-text-input id="verify-password" class="block mt-1 w-full" type="text"
-                                name="password_confirmation" auhtocomplete="password_confirmation"
+                                name="password_confirmation" autocomplete="password_confirmation"
                                 placeholder="Confirmez le mot de passe" data-step="2" />
-                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                            <div class="text-sm error-password_confirmation mt-2 text-red-600"></div>
                         </div>
                     </div>
 
@@ -112,7 +112,7 @@
                                 <option value="vegan">Végan</option>
                                 <option value="sans-gluten">Sans gluten</option>
                             </select>
-                            <x-input-error :messages="$errors->get('regime')" class="mt-2" />
+                            <div class="text-sm error-regime mt-2 text-red-600"></div>
                         </div>
 
                         <!-- Allergènes -->
@@ -126,7 +126,7 @@
                                 class="absolute left-0 right-0 z-10 bg-white rounded-lg mt-1 flex flex-col contain-search-result max-h-24 overflow-y-scroll shadow-xl">
                             </div>
 
-                            <x-input-error :messages="$errors->get('allergenes')" class="mt-2" />
+                            <div class="text-sm error-allergenes mt-2 text-red-600"></div>
 
                             <div class="flex mt-2 flex-wrap gap-2 contain-tag-allergene"></div>
                         </div>
@@ -142,11 +142,11 @@
                                 <option value="prise-masse">Prise de masse</option>
                                 <option value="maintien">Maintien</option>
                             </select>
-                            <x-input-error :messages="$errors->get('objectif')" class="mt-2" />
+                            <div class="text-sm error-objectif mt-2 text-red-600"></div>
                         </div>
                     </div>
                 </div>
-                <div class="contain-error flex flex-col gap-2"></div>
+                {{-- <div class="contain-error flex flex-col gap-2"></div> --}}
                 <div class="flex flex-col gap-y-2 items-center justify-end mt-4">
                     <x-primary-button :disabled="true" id="validate-form">
                         {{ __('Créer mon compte') }}
