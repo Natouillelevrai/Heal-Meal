@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models;
 
-use Illuminate\Support\Facades\DB;
-use App\Models\Recette;
-use App\Models\Step;
+use DB;
+use Illuminate\Database\Eloquent\Model;
 
-class RecipesController
+class AdminController extends Model
 {
-    public function index()
+    public function dashboard()
     {
         $recettes = DB::table('recettes')
             ->join('users', 'recettes.id_user', '=', 'users.id_user')
@@ -40,27 +39,9 @@ class RecipesController
             )
             ->paginate(12);
 
-
-        return view('recipes-catalog', [
+        return view('dashboard', [
             'recettes' => $recettes,
-            'title' => 'Catalogue de recettes'
+            'title' => 'Dashboard | ADMIN'
         ]);
     }
-  public function show($ref)
-    {
-        $recette = Recette::with(['origin', 'user', 'ingredients', 'steps'])
-            ->where('references', $ref)
-            ->first();
-
-        if (!$recette) {
-            abort(404, 'Recette not found');
-            exit;
-        }
-
-        $recette = $recette->toArray();
-        
-        return view('details', [
-            'title' => $recette["name"] . ' - Heal Meal',
-            'recette' => $recette]);
-  }
 }

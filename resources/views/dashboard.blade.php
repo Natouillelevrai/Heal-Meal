@@ -1,16 +1,17 @@
-<x-app-layout :title="$title">
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
+<x-app-layout>
+    <div class="py-12 w-full">
+        <div class="w-full max-w-7xl mx-auto h-auto sm:px-6 lg:px-8">
+            <x-filter-component />
+
+            <div class="p-6 text-gray-900">
+                @foreach($recettes as $recette)
+                    <x-recipes-card :recette="$recette" admin="true"/>
+                @endforeach
+            </div>
+
+            <div class="mt-3 w-full flex justify-center h-5 py-7">
+                {{ $recettes->links('pagination::tailwind') }}
             </div>
         </div>
     </div>

@@ -1,9 +1,9 @@
 <x-app-layout :title="$title">
-    <section>
+    <section class="w-full">
         @foreach($recettes as $recette)
             <x-recipes-card :recette="$recette" />
         @endforeach
-        <div class="mt-6 w-full flex justify-center h-5 py-10">
+        <div class="mt-3 w-full flex justify-center h-5 py-7">
             {{ $recettes->links('pagination::tailwind') }}
         </div>
     </section>

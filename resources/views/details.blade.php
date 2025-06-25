@@ -1,5 +1,5 @@
 <x-app-layout :title="$title">
-    <div class="w-full bg-[#B7E7EB] mt-5 p-5 rounded-xl flex flex-col items-center mt-30">
+    <div class="w-full bg-[#B7E7EB] mt-5 p-5 rounded-xl flex flex-col items-center">
         <div class="w-full flex flex-col items-center">
             <div class="w-full flex items-center justify-between">
                 <h1 class="text-xl">{{ $recette["name"] }}</h1>

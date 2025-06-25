@@ -1,6 +1,5 @@
 <x-app-layout :title="$title">
-    <div class="flex flex-col items-center inter py-20">
-
+    <div class="flex flex-col items-center inter  pb-20 mt-20">
         <h1 class="text-3xl">Bienvenue</h1>
         <a href="#" class="relative inline-block text-xl group">
             Ceci est Heal Meal
