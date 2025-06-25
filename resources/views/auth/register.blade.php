@@ -7,8 +7,7 @@
     <div class="w-full min-h-screen overflow-y-auto flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
         <form
             class="flex flex-col gap-y-4 w-full max-w-[400px] py-16 px-6 sm:px-12 bg-[#B7E7EB] rounded-2xl ring-2 ring-white shadow-lg"
-            method="post"
-            id="register-form">
+            method="post" id="register-form">
             @csrf
 
             <h2 class="text-center text-xl uppercase tracking-widest font-bold">Inscription</h2>
@@ -93,7 +92,7 @@
                         <div>
                             <x-input-label for="verify-password" :value="__('Vérification mot de passe')" />
                             <x-text-input id="verify-password" class="block mt-1 w-full" type="text"
-                                name="password_confirmation" autocomplete="password_confirmation"
+                                name="password_confirmation" auhtocomplete="password_confirmation"
                                 placeholder="Confirmez le mot de passe" data-step="2" />
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
@@ -117,21 +116,19 @@
                         </div>
 
                         <!-- Allergènes -->
-                        <div class="mt-4">
+                        <div class="relative mt-4">
                             <x-input-label for="allergenes" :value="__('Allergène(s)')" />
-                            <div>
-                                <x-text-input id="allergenes" type="search" name="allergenes" placeholder="Ajouter..."
-                                    class="block w-full mt-1" autocomplete="off" :value="old('allergenes')" />
-                                <div class="w-full bg-white rounded-lg contain-search-result">
 
-                                </div>
+                            <x-text-input id="allergenes" type="search" name="allergenes" placeholder="Ajouter..."
+                                class="block w-full mt-1" autocomplete="off" :value="old('allergenes')" />
+
+                            <div
+                                class="absolute left-0 right-0 z-10 bg-white rounded-lg mt-1 flex flex-col contain-search-result max-h-24 overflow-y-scroll shadow-xl">
                             </div>
+
                             <x-input-error :messages="$errors->get('allergenes')" class="mt-2" />
 
-                            <!-- Tags affichés -->
-                            <div class="flex mt-2 flex-wrap gap-2 contain-tag-allergene">
-
-                            </div>
+                            <div class="flex mt-2 flex-wrap gap-2 contain-tag-allergene"></div>
                         </div>
 
                         <!-- Objectif -->

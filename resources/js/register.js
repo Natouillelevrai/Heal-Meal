@@ -56,7 +56,7 @@ function sortData(q) {
 
 function createAllergeneSearch(text,id) {
     let containSearchResult = document.querySelector('.contain-search-result');
-    containSearchResult.innerHTML += `<p class="divSearch" data-id="${id}">${text}</p>`;
+    containSearchResult.innerHTML += `<p class="divSearch px-4 py-2" data-id="${id}">${text}</p>`;
 }
 
 searchInput.addEventListener('input', function () {
