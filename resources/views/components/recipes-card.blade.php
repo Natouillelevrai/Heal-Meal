@@ -1,4 +1,3 @@
-@props(['recette'])
 
 <div class="relative">
     <a href="#">
