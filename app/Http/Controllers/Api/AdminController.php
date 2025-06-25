@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use DB;
-use Illuminate\Database\Eloquent\Model;
 
-class AdminController extends Model
+class AdminController extends Controller
 {
     public function dashboard()
     {

@@ -1,9 +1,10 @@
 <?php
 
+
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipesController;
-use App\Models\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
