@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->longText('desc');
 
             $table->enum('season', [1, 2, 3, 4]);
-
+            $table->boolean('public');
             $table->unsignedBigInteger('id_origine');
             $table->unsignedBigInteger('id_user');
 
