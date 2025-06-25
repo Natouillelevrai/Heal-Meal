@@ -1,3 +1,7 @@
+@php
+    if (!isset($admin)) $admin = false;
+@endphp
+
 <div class="relative">
     <div class="w-full h-36 my-5 flex bg-white rounded-xl shadow-md overflow-hidden">
 

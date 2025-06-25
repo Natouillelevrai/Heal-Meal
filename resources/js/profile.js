@@ -8,7 +8,6 @@ async function loadNewData(e, form) {
 
     e.preventDefault();
     const formData = new FormData(form);
-
         const response = await init('http://127.0.0.1:8000/api/userDetail', formData);
         console.log(response);
         recipesContainer.innerHTML = response.recettes;

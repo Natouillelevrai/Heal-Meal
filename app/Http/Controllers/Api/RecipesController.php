@@ -24,6 +24,7 @@ class RecipesController extends Controller
             ->leftJoin('regime', 'fk_ingredient_regime.id_regime', '=', 'regime.id_regime')
             ->select(
                 'recettes.id_recette',
+                'recettes.references',
                 'recettes.name',
                 'recettes.image',
                 'recettes.desc',
@@ -45,8 +46,8 @@ class RecipesController extends Controller
 
     public function user(Request $request): JsonResponse
     {
-        $type = $request->input('type');
-        $userId = $request->input('id_user');
+        $type = $request->type;
+        $userId = $request->id_user;
         User::findOrFail($userId);
         switch ($type) {
             case 'public':
