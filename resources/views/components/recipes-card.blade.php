@@ -16,12 +16,12 @@
             </div>
         </a>
 
-        <div class="flex flex-col justify-between items-end w-6/12 h-full rounded-r-xl p-2 text-yellow-400" style="background-image:
-                    linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)),
-                    url('{{ $recette->image }}');
-                    background-size: cover;
-                    background-position: center;">
+                    </div>
 
+                    <div class="flex flex-col">
+                        <p class="text-sm text-gray-600 underline">{{ $recette->origin_name }}</p>
+                        <p class="text-xs text-gray-500 font-semibold">{{ $recette->regimes }}</p>
+                    </div>
 
             @auth
                 <form class="favForm bg-[#0E2F46] w-8 h-8 rounded text flex justify-center items-center text-xl text-green-700">
