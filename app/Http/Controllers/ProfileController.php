@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Favorite;
 use App\Models\Recette;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -22,10 +23,30 @@ class ProfileController extends Controller
         $favoriteRecipeIds = $favorites->pluck('id_recette');
         $favoriteRecipes = Recette::whereIn('id_recette', $favoriteRecipeIds)->get();
 
+        $rated = Rating::where('id_user', Auth::id())->get();
+        $ratedRecipeIds = $rated->pluck('id_recette');
+        $ratedRecipes = Recette::whereIn('id_recette', $ratedRecipeIds)->get();
+
+        $publicRecipes = Recette::where("id_user", Auth::id())
+            ->where("public", true)
+            ->get();
+
+        $privateRecipes = Recette::where("id_user", Auth::id())
+            ->where("public", false)
+            ->get();
+
+        $publicRecipes->toArray();
+        $privateRecipes->toArray();
+        $favoriteRecipes->toArray();
+
         return view('profile/profil', [
             'title' => 'Profile',
             'user' => $user,
             'favorites' => $favorites,
+
+            'publicRecipes' => $publicRecipes,
+            'privateRecipes' => $privateRecipes,
+            'ratedRecipes' => $ratedRecipes,
             'favoriteRecipes' => $favoriteRecipes
         ]);
     }

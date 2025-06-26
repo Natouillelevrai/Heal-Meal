@@ -40,15 +40,21 @@
 
         <div id="recipesContainer" class="recipes w-full pt-3">
             <div id="recipesPublic" class="block">
-                <p>public</p>
+                @foreach ($publicRecipes as $plu)
+                    <x-recipes-card :favorites="$favorites" :recette="$plu"></x-recipes-card>
+                @endforeach
             </div>
 
             <div id="recipesPrivate" class="hidden">
-                <p>private</p>
+                @foreach ($privateRecipes as $priv)
+                    <x-recipes-card :favorites="$favorites" :recette="$priv"></x-recipes-card>
+                @endforeach
             </div>
 
             <div id="recipesRate" class="hidden">
-                <p>rate</p>
+                @foreach ($ratedRecipes as $rate)
+                    <x-recipes-card :favorites="$favorites" :recette="$rate"></x-recipes-card>
+                @endforeach
             </div>
 
             <div id="recipesFav" class="hidden">
