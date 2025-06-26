@@ -83,7 +83,7 @@
                         <!-- Mot de passe -->
                         <div>
                             <x-input-label for="password" :value="__('Mot de passe')" />
-                            <x-text-input id="password" class="block mt-1 w-full" type="text" name="password"
+                            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
                                 autocomplete="password" placeholder="Entrez un mot de passe sécurisé" data-step="2" />
                             <div class="text-sm error-password mt-2 text-red-600"></div>
                         </div>
@@ -91,7 +91,7 @@
                         <!-- Vérification mot de passe -->
                         <div>
                             <x-input-label for="verify-password" :value="__('Vérification mot de passe')" />
-                            <x-text-input id="verify-password" class="block mt-1 w-full" type="text"
+                            <x-text-input id="verify-password" class="block mt-1 w-full" type="password"
                                 name="password_confirmation" autocomplete="password_confirmation"
                                 placeholder="Confirmez le mot de passe" data-step="2" />
                             <div class="text-sm error-password_confirmation mt-2 text-red-600"></div>

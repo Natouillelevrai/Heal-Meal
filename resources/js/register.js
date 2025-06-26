@@ -55,6 +55,20 @@ function sortData(q) {
         .slice(0, 5)
 }
 
+function updateStepDisplay(value) {
+    stepTitle.textContent = stepsTitle[value];
+    stepProgress.style.width = stepsProgress[value];
+    numbersProgress.forEach((number, index) => {
+        number.classList.add('bg-[#FFF7EB]', 'text-[#0E2F46]');
+        number.classList.remove('bg-[#0E2F46]', 'text-[#FFF7EB]');
+        index++;
+        if (index <= value) {
+            number.classList.remove('bg-[#FFF7EB]', 'text-[#0E2F46]');
+            number.classList.add('bg-[#0E2F46]', 'text-[#FFF7EB]');
+        }
+    });
+}
+
 function createAllergeneSearch(text, id) {
     let containSearchResult = document.querySelector('.contain-search-result');
     containSearchResult.innerHTML += `<p class="divSearch px-4 py-2" data-id="${id}">${text}</p>`;
@@ -78,15 +92,15 @@ searchInput.addEventListener('input', function () {
 
 function validateCurrentStep() {
     const formStep = document.querySelector(`[data-step="${currentStep}"]`);
-    let valid = true;
+    let valid = [];
     const requiredFields = formStep.querySelectorAll('input, select');
     requiredFields.forEach(field => {
         const value = field.value.trim();
         const name = field.getAttribute('name');
         field.classList.remove('border', 'border-red-500');
-        valid = validateField(name, value);
+        valid.push(validateField(name, value));
     });
-    return valid;
+    return valid.includes(false) ? false : true;
 }
 
 function setButtonDisabled(isDisabled, parent, btn) {
@@ -106,15 +120,7 @@ function setButtonDisabled(isDisabled, parent, btn) {
 }
 
 function updateStepFocus() {
-    stepTitle.textContent = stepsTitle[currentStep];
-    stepProgress.style.width = stepsProgress[currentStep];
-    numbersProgress.forEach((number, index) => {
-        index++;
-        if (index <= currentStep) {
-            number.classList.remove('bg-[#FFF7EB]', 'text-[#0E2F46]');
-            number.classList.add('bg-[#0E2F46]', 'text-[#FFF7EB]');
-        }
-    });
+    updateStepDisplay(currentStep);
 
     steps.forEach(step => {
         const isActive = parseInt(step.getAttribute('data-step')) === currentStep;
@@ -132,6 +138,8 @@ function updateStepFocus() {
                 el.setAttribute('disabled', 'disabled');
             }
         });
+
+        currentStep == 3 ? setButtonDisabled(false, nextStepBtn, submitButton) : setButtonDisabled(true, nextStepBtn, submitButton);
     });
 }
 
@@ -140,7 +148,8 @@ function ChooseStep(value = 1) {
         return;
     }
 
-    let currentStep = value;
+    currentStep = value;
+    updateStepDisplay(currentStep);
 
     steps.forEach(step => {
         const isActive = parseInt(step.getAttribute('data-step')) === currentStep;
@@ -158,27 +167,31 @@ function ChooseStep(value = 1) {
                 el.setAttribute('disabled', 'disabled');
             }
         });
+
+        currentStep == 3 ? setButtonDisabled(false, nextStepBtn, submitButton) : setButtonDisabled(true, nextStepBtn, submitButton);
     });
 
     const Step = document.querySelector(`[data-step="${currentStep}"]`);
     Step.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+    currentStep = currentStep;
 }
-
-
 
 updateStepFocus();
 
 nextStepBtn.addEventListener('click', () => {
-    if (!validateCurrentStep()) return;
-    const next = currentStep + 1;
-    if (next === 3) {
-        setButtonDisabled(false, nextStepBtn, submitButton);
-    }
-    const nextSlide = document.querySelector(`[data-step="${next}"]`);
-    if (nextSlide) {
-        currentStep = next;
-        updateStepFocus();
-        nextSlide.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+    if (validateCurrentStep()) {
+        const next = currentStep + 1;
+        if (next === 3) {
+            setButtonDisabled(false, nextStepBtn, submitButton);
+        }
+        const nextSlide = document.querySelector(`[data-step="${next}"]`);
+        if (nextSlide) {
+            currentStep = next;
+            console.log(currentStep);
+            
+            updateStepFocus();
+            nextSlide.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+        }
     }
 });
 
