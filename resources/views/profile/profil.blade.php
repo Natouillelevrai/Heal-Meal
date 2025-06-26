@@ -59,6 +59,6 @@
         </div>
     </section>
 
-    @vite("resources/js/profile.js")
+    @vite(["resources/js/profile.js", "resources/js/favorites.js"])
 
 </x-app-layout>
