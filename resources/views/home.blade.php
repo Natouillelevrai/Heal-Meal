@@ -30,19 +30,19 @@
     </div>
 
     <div class="categoriesContainer w-full flex flex-col my-10">
-        <div class="w-full regimeContainer my-5 flex flex-col items-center">
-            <h2 class="text-2xl mb-4 py-2 underline text-center">Regimes</h2>
-            @foreach($regimes as $regime)
-                <x-element-card :element="$regime" />
+        <div class="w-full originsContainer my-5 flex flex-col items-center">
+            <h2 class="text-2xl mb-4 py-2 underline text-center">Origines</h2>
+            @foreach($origins as $origin)
+                <x-element-card :element="$origin" />
             @endforeach
             <a href="#" class="py-2 text-xl"><span class="underline">Charger plus</span> <i
                     class="ri-arrow-right-line"></i></a>
         </div>
 
-        <div class="w-full originsContainer my-5 flex flex-col items-center">
-            <h2 class="text-2xl mb-4 py-2 underline text-center">Origines</h2>
-            @foreach($origins as $origin)
-                <x-element-card :element="$origin" />
+        <div class="w-full regimeContainer my-5 flex flex-col items-center">
+            <h2 class="text-2xl mb-4 py-2 underline text-center">Regimes</h2>
+            @foreach($regimes as $regime)
+                <x-element-card :element="$regime" />
             @endforeach
             <a href="#" class="py-2 text-xl"><span class="underline">Charger plus</span> <i
                     class="ri-arrow-right-line"></i></a>
