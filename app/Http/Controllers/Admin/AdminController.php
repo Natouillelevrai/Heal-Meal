@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use DB;
-use Illuminate\Database\Eloquent\Model;
 
-class AdminController extends Model
+class AdminController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
         $recettes = DB::table('recettes')
             ->join('users', 'recettes.id_user', '=', 'users.id_user')
@@ -39,7 +39,7 @@ class AdminController extends Model
             )
             ->paginate(12);
 
-        return view('dashboard', [
+        return view('admin', [
             'recettes' => $recettes,
             'title' => 'Dashboard | ADMIN'
         ]);
