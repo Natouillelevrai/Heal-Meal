@@ -1,66 +1,53 @@
-@php
-    if (!isset($admin)) $admin = false;
-@endphp
+@props(['recette', 'favorites' => collect()])
 
 <div class="relative">
-    <div class="w-full h-36 my-5 flex bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="w-full h-36 my-5 flex zbg-white rounded-xl shadow-md overflow-hidden">
 
-        {{-- Partie texte --}}
-        <div class="flex flex-col justify-around w-6/12 h-full pl-3 pr-2 z-10 bg-white relative">
-            @if (!$admin)
-                <a href="{{ route('recette.show', $recette->references) }}" class="absolute w-full h-full"></a>
-            @endif
+        <a href="{{ route('recette.show', $recette->references) }}"
+            class="flex flex-col justify-around w-6/12 h-full pl-3 pr-2 z-10 bg-white">
             <div class="flex flex-col">
                 <h3 class="text-base font-semibold">{{ $recette->name }}</h3>
-
-                @if (!$admin)
-                    <p class="text-sm text-gray-700 italic">{{ $recette->user_name }}</p>
-                @else
-                    <a href="/admin/users/{{ $recette->user_name }}"
-                        class="text-sm text-gray-700 italic hover:underline">{{ $recette->user_name }}</a>
-                @endif
+                <p class="text-sm text-gray-700 italic">{{ $recette->user_name }}</p>
             </div>
 
             <div class="flex flex-col">
                 <p class="text-sm text-gray-600 underline">{{ $recette->origin_name }}</p>
                 <p class="text-xs text-gray-500 font-semibold">{{ $recette->regimes }}</p>
             </div>
-        </div>
+        </a>
 
-        {{-- Partie image + actions --}}
         <div class="flex flex-col justify-between items-end w-6/12 h-full rounded-r-xl p-2 text-yellow-400" style="background-image:
-                linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)),
-                url('{{ $recette->image }}');
-                background-size: cover;
-                background-position: center;">
+                    linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)),
+                    url('{{ $recette->image }}');
+                    background-size: cover;
+                    background-position: center;">
 
-            {{-- Actions admin --}}
-            @if ($admin)
-                <div class="h-full flex flex-col justify-evenly space-y-1">
-                    <a href="{{ route('recette.show', $recette->references) }}" target="_blank" title="Voir la recette"
-                        class="bg-[#0E2F46] w-8 h-8 rounded-lg flex justify-center items-center text-xl text-white">
-                        <i class="ri-external-link-line"></i>
-                    </a>
-                    <a href="/admin/edit/recipes/{{ $recette->references }}" title="Modifier"
-                        class="bg-[#0E2F46] w-8 h-8 rounded-lg flex justify-center items-center text-xl text-white">
-                        <i class="ri-edit-circle-line"></i>
-                    </a>
-                    <a href="/admin/delete/recipes/{{ $recette->references }}" title="Supprimer"
-                        class="bg-[#0E2F46] w-8 h-8 rounded-lg flex justify-center items-center text-xl text-white">
-                        <i class="ri-delete-bin-6-line"></i>
-                    </a>
+
+            @auth
+                <form class="favForm bg-[#0E2F46] w-8 h-8 rounded text flex justify-center items-center text-xl text-green-700">
+                    <input type="hidden" value="{{ $recette->id_recette }}" name="id_recette">
+                    <input type="hidden" value="{{ auth()->id() }}" name="id_user">
+
+                    <input type="hidden" name="action" value="{{ 
+                        $favorites->contains('id_recette', $recette->id_recette) ? '1' : '0'
+                    }}">
+
+                    <button class="w-full h-full cursor-pointer" type="submit">
+                        <i class="{{ $favorites->contains('id_recette', $recette->id_recette) ? 'ri-bookmark-fill' : 'ri-bookmark-line' }} icon"></i>
+                    </button>
+                </form>
+            @endauth
+
+            @guest
+                <div class="bg-[#0E2F46] w-8 h-8 rounded text flex justify-center items-center text-xl text-white">
+                    <button class="w-full h-full cursor-pointer">
+                        <i class="ri-bookmark-line icon"></i>
+                    </button>
                 </div>
-            @else
-                <div class="h-full flex flex-col justify-around items-end space-y-2">
-                    <a href="{{ route('recette.show', $recette->references) }}"
-                        class="bg-[#0E2F46] w-8 h-8 rounded flex justify-center items-center text-xl text-white"
-                        title="Voir la recette">
-                        <i class="ri-bookmark-line"></i>
-                    </a>
-                    <x-star-counter :rate="$recette->rate" />
-                </div>
-            @endif
+            @endguest
+
+            <x-star-counter :rate="$recette->rate"></x-star-counter>
+
         </div>
-
     </div>
 </div>

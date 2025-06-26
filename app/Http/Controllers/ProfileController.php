@@ -6,18 +6,54 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Favorite;
+use App\Models\Recette;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
 
-    public function index() {
+    public function index()
+    {
         $user = Auth::user();
+
+        $favorites = Favorite::where('id_user', $user->id_user)
+            ->get();
+
+        $favoriteRecipeIds = Favorite::where('id_user', $user->id_user)
+            ->pluck('id_recette');
+
+        $favoriteRecipes = Recette::withAvg('ratings as rate', 'rate')
+            ->whereIn('id_recette', $favoriteRecipeIds)
+            ->get();
+
+        $ratedRecipeIds = Rating::where('id_user', $user->id_user)
+            ->pluck('id_recette');
+
+        $ratedRecipes = Recette::withAvg('ratings as rate', 'rate')
+            ->whereIn('id_recette', $ratedRecipeIds)
+            ->get();
+
+        $publicRecipes = Recette::withAvg('ratings as rate', 'rate')
+            ->where('id_user', $user->id_user)
+            ->where('public', true)
+            ->get();
+
+        $privateRecipes = Recette::withAvg('ratings as rate', 'rate')
+            ->where('id_user', $user->id_user)
+            ->where('public', false)
+            ->get();
 
         return view('profile/profil', [
             'title' => 'Profile',
-            'user' => $user
+            'user' => $user,
+            'favorites' => $favorites,
+            'publicRecipes' => $publicRecipes,
+            'privateRecipes' => $privateRecipes,
+            'ratedRecipes' => $ratedRecipes,
+            'favoriteRecipes' => $favoriteRecipes
         ]);
     }
 

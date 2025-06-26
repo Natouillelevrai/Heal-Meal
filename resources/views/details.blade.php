@@ -1,5 +1,5 @@
 <x-app-layout :title="$title">
-    <div class="w-full bg-[#B7E7EB] mt-5 p-5 rounded-xl flex flex-col items-center">
+    <div class="w-full bg-[#B7E7EB] mt-2 p-5 rounded-xl flex flex-col items-center">
         <div class="w-full flex flex-col items-center">
             <div class="w-full flex items-center justify-between">
                 <h1 class="text-xl">{{ $recette["name"] }}</h1>
@@ -10,14 +10,34 @@
             <img src="{{ $recette['image'] }}" alt="Recette Image" class="w-full h-45 object-cover rounded-lg mt-4">
 
             <div class="w-70/100 h-7 mt-5 mb-2 flex flex-row justify-between">
-                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-orange-500"><i
-                        class="ri-chat-4-line"></i></div>
-                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-yellow-500"><i
-                        class="ri-star-line"></i></div>
-                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-green-500"><i
-                        class="ri-bookmark-line"></i></div>
-                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-blue-500"><i
-                        class="ri-share-line"></i></div>
+                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-orange-500">
+                    <button class="ri-chat-4-line"></button>
+                </div>
+
+                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-yellow-500">
+                    <button class="ri-star-line"></button>
+                </div>
+
+                @php $isFav = $favorites->contains('id_recette', $recette['id_recette']); @endphp
+
+                <form class="favForm bg-white h-full w-10 p-1 rounded-lg flex items-center text-green-500">
+                    @auth
+                        <input type="hidden" name="id_recette" value="{{ $recette['id_recette'] }}">
+                        <input type="hidden" name="id_user" value="{{ auth()->id() }}">
+
+                        <button type="submit" class="icon {{ $isFav ? 'ri-bookmark-fill' : 'ri-bookmark-line' }}"></button>
+                    @endauth
+
+                    @guest
+                        <i class="ri-bookmark-line"></i>
+                    @endguest
+
+                    <span class="fav-count text-black pl-1">{{ count($recette['favorite']) }}</span>
+                </form>
+
+                <div class="bg-white h-full w-7 p-2 rounded-lg flex justify-center items-center text-blue-500">
+                    <button class="ri-share-line"></button>
+                </div>
             </div>
 
             <div class="mt-3">
@@ -57,4 +77,6 @@
             </div>
         </div>
     </div>
+
+    @vite(['resources/js/favorites.js'])
 </x-app-layout>
