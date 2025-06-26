@@ -19,31 +19,37 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        $favorites = Favorite::where('id_user', Auth::id())->get();
-        $favoriteRecipeIds = $favorites->pluck('id_recette');
-        $favoriteRecipes = Recette::whereIn('id_recette', $favoriteRecipeIds)->get();
-
-        $rated = Rating::where('id_user', Auth::id())->get();
-        $ratedRecipeIds = $rated->pluck('id_recette');
-        $ratedRecipes = Recette::whereIn('id_recette', $ratedRecipeIds)->get();
-
-        $publicRecipes = Recette::where("id_user", Auth::id())
-            ->where("public", true)
+        $favorites = Favorite::where('id_user', $user->id_user)
             ->get();
 
-        $privateRecipes = Recette::where("id_user", Auth::id())
-            ->where("public", false)
+        $favoriteRecipeIds = Favorite::where('id_user', $user->id_user)
+            ->pluck('id_recette');
+
+        $favoriteRecipes = Recette::withAvg('ratings as rate', 'rate')
+            ->whereIn('id_recette', $favoriteRecipeIds)
             ->get();
 
-        $publicRecipes->toArray();
-        $privateRecipes->toArray();
-        $favoriteRecipes->toArray();
+        $ratedRecipeIds = Rating::where('id_user', $user->id_user)
+            ->pluck('id_recette');
+
+        $ratedRecipes = Recette::withAvg('ratings as rate', 'rate')
+            ->whereIn('id_recette', $ratedRecipeIds)
+            ->get();
+
+        $publicRecipes = Recette::withAvg('ratings as rate', 'rate')
+            ->where('id_user', $user->id_user)
+            ->where('public', true)
+            ->get();
+
+        $privateRecipes = Recette::withAvg('ratings as rate', 'rate')
+            ->where('id_user', $user->id_user)
+            ->where('public', false)
+            ->get();
 
         return view('profile/profil', [
             'title' => 'Profile',
             'user' => $user,
             'favorites' => $favorites,
-
             'publicRecipes' => $publicRecipes,
             'privateRecipes' => $privateRecipes,
             'ratedRecipes' => $ratedRecipes,
