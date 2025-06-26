@@ -34,6 +34,7 @@
                 <li><a href="/admin">Admin</a></li>
                 <li><a href="/log-out">Log out</a></li>
             @endauth
+
         </ul>
     </div>
     @vite('resources/js/burger-menu-header.js')
