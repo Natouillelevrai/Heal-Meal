@@ -211,6 +211,7 @@ form.addEventListener('submit', e => {
     for (const [key, value] of formData.entries()) {
         dataRegister[key] = value;
     }
+    
     const allergeneElements = document.querySelectorAll('.allergene-value');
     const allergenes = Array.from(allergeneElements).map(el => el.dataset.id.trim());
 
