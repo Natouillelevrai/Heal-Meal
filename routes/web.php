@@ -3,6 +3,8 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipesController;
+use App\Http\Controllers\OriginController;
+use App\Http\Controllers\CategorieController;
 use App\Models\AdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,6 +12,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/recette/{ref}', [RecipesController::class, 'show'])->name('recette.show');
 Route::get('/recettes', [RecipesController::class, 'index'])->name('recettes');
+Route::get('/origin/{q}', [OriginController::class, 'show'])->name('origin.show');
 
 
 Route::middleware(['auth'])->group(function () {
