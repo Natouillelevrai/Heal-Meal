@@ -28,35 +28,37 @@
             </div>
         </div>
     </section>
-    <section class="flex justify-center items-center py-5 w-full flex-col">
-        <div class="w-9/10 h-10 bg-[#B7E7EB] rounded-lg flex flex-row justify-around items-center search-contain-form">
-            <form class="px-5 rounded-l-lg h-full text-white flex justify-center items-center">
-                <input type="hidden" name="id_user" value="{{$user->id_user}}">
-                <input type="hidden" name="type" value="public">
-                <button type="submit" class="clickable">Public</button>
-            </form>
-            <form
-                class="bg-white px-2 rounded-l-lg h-full text-[#B7E7EB] flex justify-center items-center border border-2 border-[#B7E7EB]">
-                <input type="hidden" name="id_user" value="{{$user->id_user}}">
-                <input type="hidden" name="type" value="private">
-                <button type="submit" class="clickable">Private</button>
-            </form>
-            <form
-                class="bg-white px-2 rounded-l-lg h-full text-[#B7E7EB] flex justify-center items-center border border-2 border-[#B7E7EB]">
-                <input type="hidden" name="id_user" value="{{$user->id_user}}">
-                <input type="hidden" name="type" value="commenter">
-                <button type="submit" class="clickable">Noté</button>
-            </form>
-            <form
-                class="bg-white px-2 rounded-lg h-full text-[#B7E7EB] flex justify-center items-center border border-2 border-[#B7E7EB]">
-                <input type="hidden" name="id_user" value="{{$user->id_user}}">
-                <input type="hidden" name="type" value="enregistrer">
-                <button type="submit" class="clickable">Enregistrer</button>
-            </form>
-        </div>
-        <div class="recipes w-full px-5">
 
+    <section class="flex justify-center items-center py-5 w-full flex-col">
+
+        <div id="buttonsList" class="w-full h-10 bg-[#B7E7EB] rounded-lg flex flex-row justify-around items-center">
+            <button class="bg-white border-[#B7E7EB] border-2xl p-1 rounded">Publiques</button>
+            <button class="bg-white border-[#B7E7EB] border-2xl p-1 rounded">Privées</button>
+            <button class="bg-white border-[#B7E7EB] border-2xl p-1 rounded">Noté</button>
+            <button class="bg-white border-[#B7E7EB] border-2xl p-1 rounded">Enregistrées</button>
+        </div>
+
+        <div id="recipesContainer" class="recipes w-full pt-3">
+            <div id="recipesPublic" class="block">
+                <p>public</p>
+            </div>
+
+            <div id="recipesPrivate" class="hidden">
+                <p>private</p>
+            </div>
+
+            <div id="recipesRate" class="hidden">
+                <p>rate</p>
+            </div>
+
+            <div id="recipesFav" class="hidden">
+                @foreach ($favoriteRecipes as $fav)
+                    <x-recipes-card :favorites="$favorites" :recette="$fav"></x-recipes-card>
+                @endforeach
+            </div>
         </div>
     </section>
+
     @vite("resources/js/profile.js")
+
 </x-app-layout>

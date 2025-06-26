@@ -6,18 +6,27 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Favorite;
+use App\Models\Recette;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
 
-    public function index() {
+    public function index()
+    {
         $user = Auth::user();
+
+        $favorites = Favorite::where('id_user', Auth::id())->get();
+        $favoriteRecipeIds = $favorites->pluck('id_recette');
+        $favoriteRecipes = Recette::whereIn('id_recette', $favoriteRecipeIds)->get();
 
         return view('profile/profil', [
             'title' => 'Profile',
-            'user' => $user
+            'user' => $user,
+            'favorites' => $favorites,
+            'favoriteRecipes' => $favoriteRecipes
         ]);
     }
 

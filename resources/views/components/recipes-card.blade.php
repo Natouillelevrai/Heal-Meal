@@ -1,7 +1,7 @@
 @props(['recette', 'favorites' => collect()])
 
 <div class="relative">
-    <div class="w-full h-36 my-5 flex bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="w-full h-36 my-5 flex zbg-white rounded-xl shadow-md overflow-hidden">
 
         <a href="{{ route('recette.show', $recette->references) }}"
             class="flex flex-col justify-around w-6/12 h-full pl-3 pr-2 z-10 bg-white">
